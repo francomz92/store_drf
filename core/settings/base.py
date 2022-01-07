@@ -16,6 +16,7 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
+    'apps.users.apps.UsersConfig',
 ]
 
 THIRD_APPS = [
@@ -88,4 +89,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'auth:login'
 LOGOUT_URL = 'auth:logout'
 
-# AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'users.User'
