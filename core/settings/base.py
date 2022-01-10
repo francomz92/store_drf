@@ -23,6 +23,7 @@ THIRD_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
+    'django_filters',
 ]
 
 INSTALLED_APPS = [*BASE_APPS, *THIRD_APPS, *LOCAL_APPS]
@@ -86,7 +87,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_URL = 'auth:login'
-LOGOUT_URL = 'auth:logout'
+# LOGIN_URL = 'auth:login'
+# LOGOUT_URL = 'auth:logout'
 
 AUTH_USER_MODEL = 'users.User'
