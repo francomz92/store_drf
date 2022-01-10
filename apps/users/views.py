@@ -13,3 +13,4 @@ class UsersListCreateView(ListCreateAPIView):
    queryset = model.objects.all().order_by('-id')
 
    permission_classes = (permissions.IsAdminUser, )
+   filterset_class = UsersFilters
