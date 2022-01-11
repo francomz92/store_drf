@@ -26,3 +26,21 @@ class UsersListSerializer(serializers.ModelSerializer):
                                                             'ABCDEFGHJKLMNPQRSTUVWXYZ'
                                                             '23456789')
       return super().create(validated_data)
+
+
+class UserSingleSerializer(serializers.ModelSerializer):
+
+   class Meta:
+      model = get_user_model()
+      exclude = (
+          'password',
+          'is_superuser',
+          'groups',
+          'user_permissions',
+      )
+      read_only_fields = (
+          'id',
+          'email',
+          'last_login',
+          'is_staff',
+      )
