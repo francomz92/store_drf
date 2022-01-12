@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .filters import UsersFilters
 
@@ -11,7 +13,9 @@ class UsersListCreateView(ListCreateAPIView):
    serializer_class = serializers.UsersListSerializer
    model = serializer_class.Meta.model
    permission_classes = (permissions.IsAdminUser, )
+   filter_backends = (DjangoFilterBackend, SearchFilter)
    filterset_class = UsersFilters
+   search_fields = ('email', 'first_name', 'last_name')
 
    def get_queryset(self):
       return self.model.objects.all().order_by('-id')

@@ -165,6 +165,16 @@ class UserGeneralViewsTest(APITestCase):
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertEqual(data['results'], [])
 
+   def test_to_get_searched_user_by_query_param(self):
+      """
+         Try to get users data when search param is specified (email, first_name or last_name).
+      """
+      user = create_an_user('email@example.com')
+      response = self.client.get(USER_URL + '?search=' + user.email)
+      data = response.json()
+      self.assertEqual(response.status_code, status.HTTP_200_OK)
+      self.assertIn(serializers.UserSingleSerializer(user).data, data['results'])
+
 
 class UserParticularViewsTest(APITestCase):
 

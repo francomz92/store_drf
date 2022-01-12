@@ -9,13 +9,13 @@ class UsersListSerializer(serializers.ModelSerializer):
       model = get_user_model()
       exclude = (
           'is_superuser',
-          'is_staff',
           'groups',
           'user_permissions',
           'password',
       )
       read_only_fields = (
           'id',
+          'is_staff',
           'is_active',
           'last_login',
       )
