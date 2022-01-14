@@ -1,6 +1,5 @@
-from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from django.utils import crypto
+from rest_framework import serializers, exceptions
 
 
 class UsersListSerializer(serializers.ModelSerializer):
@@ -20,11 +19,13 @@ class UsersListSerializer(serializers.ModelSerializer):
           'last_login',
       )
 
+   def validate_dni(self, value: str):
+      if (not value.isnumeric()) or len(value) != 8:
+         raise exceptions.ValidationError(detail=f'{value} no es un número de dni válido')
+      return value
+
    def create(self, validated_data):
-      validated_data['password'] = crypto.get_random_string(length=10,
-                                                            allowed_chars='abcdefghjkmnpqrstuvwxyz'
-                                                            'ABCDEFGHJKLMNPQRSTUVWXYZ'
-                                                            '23456789')
+      validated_data['password'] = validated_data['dni']
       return super().create(validated_data)
 
 
@@ -43,4 +44,5 @@ class UserSingleSerializer(serializers.ModelSerializer):
           'email',
           'last_login',
           'is_staff',
+          'dni',
       )

@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 
 class UserManager(BaseUserManager):
 
-   def _create(self, email: str, password: Optional[str] = None, **kwargs):
+   def create(self, email: str, password: Optional[str] = None, **kwargs):
       user = self.model(
           email=self.normalize_email(email),
           **kwargs,
@@ -16,13 +16,14 @@ class UserManager(BaseUserManager):
       return user
 
    def create_user(self, email: str, password: Optional[str] = None):
-      return self._create(email, password)
+      return self.create(email, password)
 
    def create_superuser(self,
                         email: str,
+                        dni: str,
                         password: Optional[str] = None,
                         is_superuser: Optional[bool] = True):
-      return self._create(email, password, is_superuser=is_superuser, is_staff=True)
+      return self.create(email, password, dni=dni, is_superuser=is_superuser, is_staff=True)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -32,6 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
    city = models.CharField(verbose_name=_('City'), max_length=50)
    zip_code = models.CharField(verbose_name=_('Zip Code'), max_length=8)
    email = models.EmailField(verbose_name=_('Email'), max_length=128, unique=True)
+   dni = models.CharField(verbose_name='DNI', max_length=8, unique=True)
    gender = models.CharField(verbose_name='Gender',
                              max_length=1,
                              choices=(
@@ -46,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
    USERNAME_FIELD = 'email'
 
-   # REQUIRED_FIELDS = ['_username']
+   REQUIRED_FIELDS = ['dni']
 
    def __str__(self) -> str:
       return self.get_username()
