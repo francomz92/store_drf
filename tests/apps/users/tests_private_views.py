@@ -1,26 +1,13 @@
 import json
 from typing import Dict
-from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
+
+from tests.utils.users import User, SUPERUSER, create_an_user
 from apps.users import serializers
 
-User = get_user_model()
 USER_URL = reverse_lazy('users:users_list_create')
-SUPERUSER = User.objects.get_or_create(email='root@example.com')[0]
-setattr(SUPERUSER, 'is_staff', True)
-
-
-def create_an_user(email: str, **kwargs):
-   return User.objects.create(first_name=kwargs.pop('first_name', 'pepe'),
-                              email=email,
-                              last_name=kwargs.pop('last_name', 'abc'),
-                              province=kwargs.pop('province', 'Chaco'),
-                              city=kwargs.pop('city', 'Juan Jose Castelli'),
-                              gender=kwargs.pop('gender', 'M'),
-                              zip_code=kwargs.pop('zip_code', '3705'),
-                              **kwargs)
 
 
 class UserGeneralViewsTest(APITestCase):
@@ -53,6 +40,7 @@ class UserGeneralViewsTest(APITestCase):
           "city": "Capital",
           "gender": "M",
           'zip_code': '3705',
+          'dni': '12314313',
       }
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
@@ -74,6 +62,7 @@ class UserGeneralViewsTest(APITestCase):
           "city": "Capital",
           "gender": "M",
           'zip_code': '3705',
+          'dni': '12314312',
       }
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
@@ -96,6 +85,7 @@ class UserGeneralViewsTest(APITestCase):
           "city": "Capital",
           "gender": "M",
           'zip_code': '3705',
+          'dni': '12314312',
       }
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
@@ -115,6 +105,7 @@ class UserGeneralViewsTest(APITestCase):
           "city": "Capital",
           "gender": "M",
           'zip_code': '3705',
+          'dni': '12314312',
       }
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
