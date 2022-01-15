@@ -8,7 +8,7 @@ from ...utils.users import User
 SIGNUP_URL = reverse_lazy('auth:signup')
 
 
-class AuthViewTests(APITestCase):
+class SignUpViewTests(APITestCase):
 
    def setUp(self) -> None:
       self.client = APIClient()

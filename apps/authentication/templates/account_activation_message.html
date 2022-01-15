@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8" />
+      <title>Activación de Cuenta</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   </head>
+   <body>
+      {% comment %} <img src="" alt="" /> Logo {% endcomment %}
+      <h1>Activación de Cuenta</h1>
+      <p>
+         Gracias {{user.first_name}} por registrarte, por favor confirma tu cuenta
+         <a href="{{url}}">aqui</a> o haz clic en el siguiente boton.
+      </p>
+      <a href="{{url}}" target="_blank" rel="noopener noreferrer"></a>
+      <footer>Saludos, {{from}}</footer>
+   </body>
+</html>
