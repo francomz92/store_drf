@@ -1,6 +1,6 @@
 from django.contrib.auth import tokens, get_user_model
 from django.utils.translation import gettext as _
-from django.utils import http, encoding
+from django.utils import http
 from rest_framework import response, status, generics, exceptions
 
 from . import serializers
@@ -12,7 +12,7 @@ class SignUpView(generics.GenericAPIView):
    def post(self, request, *args, **kwargs):
       user_serializer = self.get_serializer(data=request.data)
       if user_serializer.is_valid():
-         user_serializer.save(is_active=False)
+         user_serializer.save()
          return response.Response(
              {
                  'message':
@@ -31,9 +31,9 @@ class AuthenticationView(generics.GenericAPIView):
 
    def get(self, request, *args, **kwargs):
       try:
-         uid = encoding.force_text(http.urlsafe_base64_decode(kwargs['uidb64']))
-         user = get_user_model().objects.get(pk=uid)
-      except:
+         uid = http.urlsafe_base64_decode(kwargs['uidb64']).decode()
+         user = get_user_model().objects.get(email=uid)
+      except Exception as err:
          user = None
       if user is not None and activation_token.check_token(user, kwargs['token']):
          user.is_active = True

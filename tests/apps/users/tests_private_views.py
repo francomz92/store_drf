@@ -12,6 +12,17 @@ USER_URL = reverse_lazy('users:users_list_create')
 
 class UserGeneralViewsTest(APITestCase):
 
+   payload: Dict[str, str] = {
+       "email": "pepto@email.com",
+       "first_name": "Jose",
+       "last_name": "Argento",
+       "province": "Buenos Aires",
+       "city": "Capital",
+       "gender": "M",
+       'zip_code': '3705',
+       'dni': '12314313',
+   }
+
    def setUp(self) -> None:
       self.client = APIClient()
       self.client.force_authenticate(SUPERUSER)
@@ -32,19 +43,9 @@ class UserGeneralViewsTest(APITestCase):
       """
          Create a new user successfully when provided data is valid
       """
-      payload: Dict[str, str] = {
-          "email": "pepto@email.com",
-          "first_name": "Jose",
-          "last_name": "Argento",
-          "province": "Buenos Aires",
-          "city": "Capital",
-          "gender": "M",
-          'zip_code': '3705',
-          'dni': '12314313',
-      }
-      response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
+      response = self.client.post(USER_URL, data=json.dumps(self.payload), content_type='application/json')
       data = response.json()
-      user = User.objects.filter(email=payload['email']).first()
+      user = User.objects.filter(email=self.payload['email']).first()
       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
       self.assertIsNotNone(user)
       self.assertEqual(data, serializers.UsersListSerializer(user).data)
@@ -54,16 +55,8 @@ class UserGeneralViewsTest(APITestCase):
          Try to create a user without any required fields.
          This operation should return an error and user should not be created.
       """
-      payload: Dict[str, str] = {
-          # _first_name field is required
-          "email": "pepto@email.com",
-          "last_name": "Argento",
-          "province": "Buenos Aires",
-          "city": "Capital",
-          "gender": "M",
-          'zip_code': '3705',
-          'dni': '12314312',
-      }
+      payload: Dict[str, str] = {**self.payload}
+      payload.pop('first_name')
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
       user = User.objects.filter(email=payload['email']).first()
@@ -77,16 +70,8 @@ class UserGeneralViewsTest(APITestCase):
          This operation should return an error and user should not be created.
       """
       create_an_user('pepe123@email.com')
-      payload: Dict[str, str] = {
-          "email": "pepe123@email.com",
-          "first_name": "Jose",
-          "last_name": "Argento",
-          "province": "Buenos Aires",
-          "city": "Capital",
-          "gender": "M",
-          'zip_code': '3705',
-          'dni': '12314312',
-      }
+      payload = {**self.payload}
+      payload['email'] = 'pepe123@email.com'
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -97,16 +82,8 @@ class UserGeneralViewsTest(APITestCase):
          Try to create a user with _first_name field character limit exceeded.
          This operation should return an error and user should not be created.
       """
-      payload: Dict[str, str] = {
-          "email": "pepe123@email.com",
-          "first_name": "Lorem ipsum dolor sit amet, consectetur porttitor as",
-          "last_name": "Argento",
-          "province": "Buenos Aires",
-          "city": "Capital",
-          "gender": "M",
-          'zip_code': '3705',
-          'dni': '12314312',
-      }
+      payload = {**self.payload}
+      payload['first_name'] = 'Lorem ipsum dolor sit amet, consectetur porttitor asdfghjklñ'
       response = self.client.post(USER_URL, data=json.dumps(payload), content_type='application/json')
       data = response.json()
       user = User.objects.filter(email=payload['email']).first()
