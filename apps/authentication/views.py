@@ -2,6 +2,7 @@ from django.contrib.auth import tokens, get_user_model
 from django.utils.translation import gettext as _
 from django.utils import http
 from rest_framework import response, status, generics, exceptions
+from rest_framework_simplejwt import views as jwt_views
 
 from . import serializers
 
@@ -47,3 +48,7 @@ class AuthenticationView(generics.GenericAPIView):
       raise exceptions.ValidationError({
           'message': _('Activation link is invalid or expired'),
       }, )
+
+
+class LogInView(jwt_views.TokenObtainPairView):
+   serializer_class = serializers.LogInSerializer

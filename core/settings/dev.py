@@ -33,7 +33,7 @@ CORS_ALLOW_CREDENTIALS: bool = False
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(seconds=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(minutes=1),
-    'ROTATE_REFRESH_TOKENS': False,
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': os.getenv('ENCRYPTION_TYPE'),
     'SIGNING_KEY': os.getenv('DRF_SECRET_KEY'),
@@ -41,6 +41,7 @@ SIMPLE_JWT = {
     'AUDIENCE': None,
     'ISSUER': None,
     'AUTH_HEADER_TYPES': ('test', ),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ),

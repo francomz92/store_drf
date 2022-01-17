@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
 from rest_framework import serializers, exceptions
+from rest_framework_simplejwt import serializers as jwt_serializers
+from apps.users import serializers as user_serializers
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -37,3 +39,10 @@ class SignUpSerializer(serializers.ModelSerializer):
       return super().create(validated_data)
 
 
+class LogInSerializer(jwt_serializers.TokenObtainPairSerializer):
+
+   def validate(self, attrs):
+      data = super().validate(attrs)
+      data.setdefault('user', user_serializers.UserSingleSerializer(self.user).data)
+      data.setdefault('message', _(f'Welcome back, {self.user.__getattribute__("first_name")}'))
+      return data
