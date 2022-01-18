@@ -1,3 +1,4 @@
+from typing import Dict
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -16,3 +17,10 @@ def create_an_user(email: str, **kwargs):
                               zip_code=kwargs.pop('zip_code', '3705'),
                               dni=kwargs.pop('dni', '1234'),
                               **kwargs)
+
+
+def get_or_create_user(email: str, dni: str, password: str):
+   user = User.objects.get_or_create(email=email, dni=dni, is_active=True)[0]
+   user.set_password(password)
+   user.save()
+   return user

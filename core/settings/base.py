@@ -29,7 +29,7 @@ THIRD_APPS = [
     'django_filters',
 ]
 
-INSTALLED_APPS = [*BASE_APPS, *THIRD_APPS, *LOCAL_APPS]
+INSTALLED_APPS = [*BASE_APPS, *LOCAL_APPS, *THIRD_APPS]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

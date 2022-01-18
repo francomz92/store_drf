@@ -1,5 +1,6 @@
 from typing import Dict, List
 from datetime import timedelta
+from corsheaders.defaults import default_headers, default_methods
 from .base import *
 
 SECRET_KEY: str = 'django-insecure-=)%d-sqe9k=mg8c5*d%z1b^ve*e4_xb=0n0be^ry8_!rlr%#r)'
@@ -25,14 +26,19 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend', ),
 }
 
-CORS_ALLOWED_ORIGINS: List[str] = ['http://localhost:8000']
-CORS_ALLOWED_ORIGIN_REGEXES: List[str] = []  # Para permitir patrones de url
+# CORS_ALLOW_ALL_ORIGIN = True
+
+CORS_ALLOWED_ORIGINS: List[str] = ['http://localhost:8000', 'http://*', 'https://*']
+# CORS_ALLOWED_ORIGIN_REGEXES: List[str] = ['http://*', 'https://*']  # Para permitir patrones de url
 CORS_ALLOW_ALL_ORIGINS: bool = False
 CORS_ALLOW_CREDENTIALS: bool = False
+CORS_PREFLIGHT_MAX_AGE = 3600
+CORS_ALLOW_METHODS = list(default_methods)
+CORS_ALLOW_HEADERS = list(default_headers) + ['HTTP_AUTHORIZATION']
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=5),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': os.getenv('ENCRYPTION_TYPE'),

@@ -1,10 +1,12 @@
-from django.contrib.auth import tokens, get_user_model
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
 from django.utils import http
 from rest_framework import response, status, generics, exceptions
 from rest_framework_simplejwt import views as jwt_views
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from . import serializers
+from utils.auth import check_token
 
 
 class SignUpView(generics.GenericAPIView):
@@ -25,9 +27,6 @@ class SignUpView(generics.GenericAPIView):
       raise exceptions.ValidationError(user_serializer.errors)
 
 
-activation_token = tokens.PasswordResetTokenGenerator()
-
-
 class AuthenticationView(generics.GenericAPIView):
 
    def get(self, request, *args, **kwargs):
@@ -36,8 +35,8 @@ class AuthenticationView(generics.GenericAPIView):
          user = get_user_model().objects.get(email=uid)
       except Exception as err:
          user = None
-      if user is not None and activation_token.check_token(user, kwargs['token']):
-         user.is_active = True
+      if user is not None and check_token(user, kwargs['token']):
+         setattr(user, 'is_active', True)
          user.save()
          return response.Response(
              {
@@ -52,3 +51,19 @@ class AuthenticationView(generics.GenericAPIView):
 
 class LogInView(jwt_views.TokenObtainPairView):
    serializer_class = serializers.LogInSerializer
+
+
+class LogOutView(generics.GenericAPIView):
+
+   serializer_class = serializers.LogInSerializer
+
+   def get(self, request, *args, **kwargs):
+      if request.user.is_authenticated:
+         RefreshToken.for_user(request.user)
+         return response.Response(
+             {
+                 'message': _('You have been logged out successfully'),
+             },
+             status=status.HTTP_200_OK,
+         )
+      raise exceptions.NotAuthenticated('You are not authenticated')

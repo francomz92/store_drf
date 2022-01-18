@@ -1,14 +1,18 @@
 from typing import Dict
-import json
 from django.urls import reverse_lazy
+from django.contrib.auth.tokens import default_token_generator
+
+from rest_framework_simplejwt.tokens import AccessToken
+
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 from utils.auth import get_activation_account_link
-from ...utils.users import User, create_an_user
+from ...utils.users import User, create_an_user, get_or_create_user
 
 SIGNUP_URL = reverse_lazy('auth:signup')
 LOGIN_URL = reverse_lazy('auth:login')
+LOGOUT_URL = reverse_lazy('auth:logout')
 
 
 class SignUpViewTests(APITestCase):
@@ -35,7 +39,7 @@ class SignUpViewTests(APITestCase):
          Register successfully with valid data.
          This operation should return a 201 status code, a message of confirmation and created inactived user.
       """
-      response = self.client.post(SIGNUP_URL, data=json.dumps(self.payload), content_type='application/json')
+      response = self.client.post(SIGNUP_URL, data=self.payload, format='json')
       data = response.json()
       user = User.objects.filter(email=self.payload['email']).first()
       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -53,7 +57,7 @@ class SignUpViewTests(APITestCase):
           'password': 'test_password',
           'password_confirmation': 'test_password',
       }
-      response = self.client.post(SIGNUP_URL, data=json.dumps(payload), content_type='application/json')
+      response = self.client.post(SIGNUP_URL, data=payload, format='json')
       user = User.objects.filter(email=payload['email']).first()
       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
       self.assertIsNone(user)
@@ -65,7 +69,7 @@ class SignUpViewTests(APITestCase):
       """
       payload: Dict[str, str] = {**self.payload}
       payload['password_confirmation'] = 'test_password_different'
-      response = self.client.post(SIGNUP_URL, data=json.dumps(payload), content_type='application/json')
+      response = self.client.post(SIGNUP_URL, data=payload, format='json')
       user = User.objects.filter(email=payload['email']).first()
       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
       self.assertIsNone(user)
@@ -88,13 +92,10 @@ class SignUpViewTests(APITestCase):
 
 class LogInViewTests(APITestCase):
 
-   payload: Dict[str, str] = {'email': 'test@example.com', 'password': 'test_password'}
+   payload: Dict[str, str] = {'email': 'test@example.com', 'dni': '12345671', 'password': 'test_password'}
 
    def setUp(self) -> None:
-      USER = User.objects.get_or_create(email=self.payload.get('email', None), dni='12345671',
-                                        is_active=True)[0]
-      USER.set_password(self.payload.get('password', None))
-      USER.save()
+      get_or_create_user(self.payload['email'], self.payload['dni'], self.payload['password'])
       self.client = APIClient()
       return super().setUp()
 
@@ -103,7 +104,7 @@ class LogInViewTests(APITestCase):
          Try to login with valid data.
          This operation should return a 200 status code, a message of welcome and token.
       """
-      response = self.client.post(LOGIN_URL, data=json.dumps(self.payload), content_type='application/json')
+      response = self.client.post(LOGIN_URL, data=self.payload, format='json')
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertIn('message', data)
@@ -117,8 +118,49 @@ class LogInViewTests(APITestCase):
       """
       payload: Dict[str, str] = {**self.payload}
       payload['password'] = 'test_password_different'
-      response = self.client.post(LOGIN_URL, data=json.dumps(payload), content_type='application/json')
+      response = self.client.post(LOGIN_URL, data=payload, format='json')
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
       self.assertNotIn('access', data)
       self.assertNotIn('refresh', data)
+
+   def test_try_to_login_without_some_required_data(self):
+      """
+         Try to login without some required data.
+         This operation should return a 400 status code, the missing data and does not create a new token.
+      """
+      payload: Dict[str, str] = {'password': 'test_password'}
+      response = self.client.post(LOGIN_URL, data=payload, format='json')
+      data = response.json()
+      self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+      self.assertNotIn('access', data)
+      self.assertNotIn('refresh', data)
+
+
+class LogOutViewTests(APITestCase):
+
+   payload: Dict[str, str] = {
+       'email': 'test@email.com',
+       'dni': '22222222',
+       'password': 'test_password',
+   }
+
+   def setUp(self) -> None:
+      self.user = get_or_create_user(self.payload['email'], self.payload['dni'], self.payload['password'])
+      token = AccessToken.for_user(self.user)
+      self.client = APIClient()
+      self.client.credentials(HTTP_AUTHORIZATION='test ' + str(token))
+      login = self.client.post(LOGIN_URL,
+                               data={
+                                   'email': self.payload['email'],
+                                   'password': self.payload['password']
+                               },
+                               format='json')
+
+      self.login_response = login.json()
+      return super().setUp()
+
+   def test_logout(self):
+      response = self.client.get(LOGOUT_URL)
+      self.assertEqual(response.status_code, status.HTTP_200_OK)
+      self.assertFalse(default_token_generator.check_token(self.user, self.login_response['refresh']))
