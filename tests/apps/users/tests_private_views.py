@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
 
-from tests.utils.users import User, SUPERUSER, create_an_user
+from utils.tests.users import User, SUPERUSER, create_an_user
 from apps.users import serializers
 
 USER_URL = reverse_lazy('users:users_list_create')

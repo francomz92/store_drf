@@ -8,7 +8,7 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
 from utils.auth import get_activation_account_link
-from ...utils.users import User, create_an_user, get_or_create_user
+from utils.tests.users import User, create_an_user, get_or_create_user
 
 SIGNUP_URL = reverse_lazy('auth:signup')
 LOGIN_URL = reverse_lazy('auth:login')
