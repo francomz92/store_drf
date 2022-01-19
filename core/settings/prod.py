@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional
 from datetime import timedelta
+
 from .base import *
 
 SECRET_KEY: Optional[str] = os.getenv('DRF_SECRET_KEY')

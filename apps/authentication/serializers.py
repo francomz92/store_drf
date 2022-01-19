@@ -1,7 +1,10 @@
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
+
 from rest_framework import serializers, exceptions
+
 from rest_framework_simplejwt import serializers as jwt_serializers
+
 from apps.users import serializers as user_serializers
 
 

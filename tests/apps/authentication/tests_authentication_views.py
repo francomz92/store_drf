@@ -1,13 +1,12 @@
 from typing import Dict
 from django.urls import reverse_lazy
-from django.contrib.auth.tokens import default_token_generator
 
 from rest_framework_simplejwt.tokens import AccessToken
 
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
-from utils.auth import get_activation_account_link
+from utils.auth import get_account_activation_link, check_token
 from utils.tests.users import User, create_an_user, get_or_create_user
 
 SIGNUP_URL = reverse_lazy('auth:signup')
@@ -80,7 +79,7 @@ class SignUpViewTests(APITestCase):
          This operation should return a 200 status code, a message of confirmation and activated user.
       """
       user_not_activated = create_an_user('email@example.com')
-      url = get_activation_account_link(user_not_activated)
+      url = get_account_activation_link(user_not_activated)
       response = self.client.get(url)
       data = response.json()
       user_activated = User.objects.filter(email=user_not_activated.email).first()
@@ -150,17 +149,16 @@ class LogOutViewTests(APITestCase):
       token = AccessToken.for_user(self.user)
       self.client = APIClient()
       self.client.credentials(HTTP_AUTHORIZATION='test ' + str(token))
+      return super().setUp()
+
+   def test_logout(self):
       login = self.client.post(LOGIN_URL,
                                data={
                                    'email': self.payload['email'],
                                    'password': self.payload['password']
                                },
                                format='json')
-
-      self.login_response = login.json()
-      return super().setUp()
-
-   def test_logout(self):
+      login_response = login.json()
       response = self.client.get(LOGOUT_URL)
       self.assertEqual(response.status_code, status.HTTP_200_OK)
-      self.assertFalse(default_token_generator.check_token(self.user, self.login_response['refresh']))
+      self.assertFalse(check_token(self.user, login_response['access']))

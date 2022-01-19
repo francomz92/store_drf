@@ -1,6 +1,8 @@
 from typing import Dict, List
 from datetime import timedelta
+
 from corsheaders.defaults import default_headers, default_methods
+
 from .base import *
 
 SECRET_KEY: str = 'django-insecure-=)%d-sqe9k=mg8c5*d%z1b^ve*e4_xb=0n0be^ry8_!rlr%#r)'
@@ -61,9 +63,12 @@ SIMPLE_JWT = {
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = int(str(os.getenv('EMAIL_PORT')))
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
+DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 1

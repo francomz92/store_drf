@@ -25,6 +25,7 @@ THIRD_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_rest_passwordreset',
     'corsheaders',
     'django_filters',
 ]

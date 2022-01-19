@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import UsersListCreateView, UserRetrieveUpdateDeactiveView
 
 app_name = 'users'
