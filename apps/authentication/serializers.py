@@ -49,3 +49,28 @@ class LogInSerializer(jwt_serializers.TokenObtainPairSerializer):
       data.setdefault('user', user_serializers.UserSingleSerializer(self.user).data)
       data.setdefault('message', _(f'Welcome back, {self.user.__getattribute__("first_name")}'))
       return data
+
+
+class PasswordChangeSerializer(serializers.Serializer):
+
+   old_password = serializers.CharField(max_length=128, required=True, write_only=True)
+   new_password = serializers.CharField(max_length=128, required=True, write_only=True)
+   confirm_password = serializers.CharField(max_length=128, required=True, write_only=True)
+
+   class Meta:
+      fields = ('old_password', 'new_password', 'confirm_password')
+
+   def validate(self, attrs):
+      user = self.context.get('request').__getattribute__('user')
+      if not user.check_password(attrs.get('old_password')):
+         raise exceptions.ValidationError(_('Old password is not correct'))
+      if attrs.get('new_password') != attrs.get('confirm_password'):
+         raise exceptions.ValidationError(_('Passwords do not match'))
+      if attrs.get('new_password') == attrs.get('old_password'):
+         raise exceptions.ValidationError(_('New password is the same as old password'))
+      return attrs
+
+   def update(self, instance, validated_data):
+      instance.set_password(validated_data.get('new_password'))
+      instance.save()
+      return instance

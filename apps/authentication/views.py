@@ -69,3 +69,23 @@ class LogOutView(generics.GenericAPIView):
              status=status.HTTP_200_OK,
          )
       raise exceptions.NotAuthenticated('You are not authenticated')
+
+
+class PasswordChangeView(generics.UpdateAPIView):
+
+   serializer_class = serializers.PasswordChangeSerializer
+
+   def get_object(self):
+      return self.request.user
+
+   def update(self, request, *args, **kwargs):
+      instance = self.get_object()
+      serializer = self.get_serializer(instance=instance, data=request.data)
+      serializer.is_valid(raise_exception=True)
+      self.perform_update(serializer)
+      data = {**serializer.data, 'message': _('Your password has been changed successfully')}
+      return response.Response(data=data, status=status.HTTP_200_OK)
+
+   # def perform_update(self, serializer):
+   #    serializer.save()
+   #    serializer.data.setdefault('message', _('Your password has been changed successfully'))
