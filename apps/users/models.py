@@ -1,8 +1,8 @@
 from typing import Optional
 
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.utils.translation import gettext as _
+
+from core.models import GenericModel, models, _
 
 
 class UserManager(BaseUserManager):
@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
       return self.create(email, password, dni=dni, is_superuser=is_superuser, is_staff=True)
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin, GenericModel):
    first_name = models.CharField(verbose_name=_('Name'), max_length=50)
    last_name = models.CharField(verbose_name=_('Last Name'), max_length=50)
    province = models.CharField(verbose_name=_('Provincia'), max_length=50)
