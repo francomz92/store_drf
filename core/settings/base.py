@@ -18,6 +18,7 @@ BASE_APPS = [
 LOCAL_APPS = [
     'apps.users.apps.UsersConfig',
     'apps.authentication.apps.AuthenticationConfig',
+    'apps.shop.categories.apps.CategoriesConfig',
 ]
 
 THIRD_APPS = [
