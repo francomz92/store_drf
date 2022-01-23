@@ -2,7 +2,7 @@ from core.models import GenericModel, models, _
 
 
 class Category(GenericModel):
-   name = models.CharField(verbose_name=_('Name'), max_length=100)
+   name = models.CharField(verbose_name=_('Name'), max_length=64, unique=True)
 
    class Meta:
       verbose_name = _('Category')
