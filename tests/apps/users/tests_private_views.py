@@ -6,10 +6,10 @@ from django.urls import reverse_lazy
 from rest_framework.test import APIClient, APITestCase
 from rest_framework import status
 
-from utils.tests.users import User, SUPERUSER, create_an_user
+from utils.tests.users import User, SUPERUSER, create_an_user, get_or_create_user
 from apps.users import serializers
 
-USER_URL = reverse_lazy('users:users_list_create')
+USER_URL = reverse_lazy('users:users')
 
 
 class UserGeneralViewsTest(APITestCase):
@@ -26,8 +26,9 @@ class UserGeneralViewsTest(APITestCase):
    }
 
    def setUp(self) -> None:
+      user = get_or_create_user(email='email@test.com', dni='22222222', password='password')
       self.client = APIClient()
-      self.client.force_authenticate(SUPERUSER)
+      self.client.force_authenticate(user)
       return super().setUp()
 
    def test_get_users_list(self):
@@ -98,18 +99,18 @@ class UserGeneralViewsTest(APITestCase):
          Get successfully user data when email query parameter is specified
       """
       user = create_an_user('user@example.com')
-      response = self.client.get(USER_URL + '?email=userexample')
+      response = self.client.get(USER_URL + f'?email={user.__getattribute__("email")}')
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
-      self.assertIsNotNone(data)
+      self.assertIsNotNone(data['results'])
       self.assertIn(serializers.UsersListSerializer(user).data, data['results'])
 
-   def test_try_to_get_user_by_id_email_not_registered_query_param(self):
+   def test_try_to_get_user_by_email_not_registered_query_param(self):
       """
-         Try to get user data when id non-existing path parameter is specified
+         Try to get user data when email non-existing path parameter is specified
          This operation should return an empty list
       """
-      response = self.client.get(USER_URL + '?email=email_not_registered@example.com')
+      response = self.client.get(USER_URL + '?email=123123')
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertEqual(data['results'], [])
@@ -122,7 +123,7 @@ class UserGeneralViewsTest(APITestCase):
       response = self.client.get(USER_URL + '?province=Chaco')
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
-      self.assertIsNotNone(data)
+      self.assertIsNotNone(data['results'])
       self.assertIn(serializers.UsersListSerializer(user).data, data['results'])
 
    def test_get_user_by_province_not_registered_query_param(self):
@@ -140,7 +141,7 @@ class UserGeneralViewsTest(APITestCase):
          Try to get users data when search param is specified (email, first_name or last_name).
       """
       user = create_an_user('email@example.com')
-      response = self.client.get(USER_URL + '?search=' + user.email)
+      response = self.client.get(USER_URL + '?search=' + user.__getattribute__('email'))
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertIn(serializers.UserSingleSerializer(user).data, data['results'])
@@ -158,17 +159,18 @@ class UserParticularViewsTest(APITestCase):
          Get user data when id path parameter is specified
       """
       user = create_an_user('user@example.com')
-      response = self.client.get(reverse_lazy('users:single_user', args=(user.id, )))
+      response = self.client.get(reverse_lazy('users:user_detail', kwargs={'id':
+                                                                           user.__getattribute__('id')}))
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
-      self.assertEqual(data['email'], user.email)
+      self.assertEqual(data['email'], user.__getattribute__('email'))
 
    def test_try_to_get_user_not_registered_by_id_path_param(self):
       """
          Try get user data when id non-existing path parameter is specified
          This operation should return an error 404 not found
       """
-      response = self.client.get(reverse_lazy('users:single_user', args=(999, )))
+      response = self.client.get(reverse_lazy('users:user_detail', kwargs={'id': 0}))
       data = response.json()
       self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
       self.assertNotIn('email', data)
@@ -181,7 +183,8 @@ class UserParticularViewsTest(APITestCase):
       user = create_an_user('user@example.com', first_name='example', last_name='Example')
       payload = serializers.UserSingleSerializer(user).data
       payload['first_name'] = "Lorem"
-      response = self.client.put(reverse_lazy('users:single_user', args=(user.id, )),
+      response = self.client.put(reverse_lazy('users:user_detail', kwargs={'id':
+                                                                           user.__getattribute__('id')}),
                                  data=json.dumps(payload),
                                  content_type='application/json')
       data = response.json()
@@ -197,7 +200,8 @@ class UserParticularViewsTest(APITestCase):
       payload: Dict[str, str] = {
           "first_name": "Lorem asdasdasdajhj ahsdiola hasd oiahsdoja idaa asdjia aji",
       }
-      response = self.client.put(reverse_lazy('users:single_user', args=(user.id, )),
+      response = self.client.put(reverse_lazy('users:user_detail', kwargs={'id':
+                                                                           user.__getattribute__('id')}),
                                  data=json.dumps(payload),
                                  content_type='application/json')
       data = response.json()
@@ -212,7 +216,8 @@ class UserParticularViewsTest(APITestCase):
       user = create_an_user('user@example.com', first_name='example', last_name='Example')
       payload = serializers.UserSingleSerializer(user).data
       payload['email'] = 'new@example.com'
-      response = self.client.put(reverse_lazy('users:single_user', args=(user.id, )),
+      response = self.client.put(reverse_lazy('users:user_detail', kwargs={'id':
+                                                                           user.__getattribute__('id')}),
                                  data=json.dumps(payload),
                                  content_type='application/json')
       data = response.json()

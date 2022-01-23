@@ -13,7 +13,7 @@ from . import serializers
 class UsersListCreateView(ListCreateAPIView):
    serializer_class = serializers.UsersListSerializer
    model = serializer_class.Meta.model
-   permission_classes = (permissions.IsAdminUser, )
+   permission_classes = (permissions.IsAuthenticated, )
    filter_backends = (DjangoFilterBackend, SearchFilter)
    filterset_class = UsersFilters
    search_fields = ('email', 'first_name', 'last_name')

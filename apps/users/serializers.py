@@ -13,12 +13,7 @@ class UsersListSerializer(serializers.ModelSerializer):
           'user_permissions',
           'password',
       )
-      read_only_fields = (
-          'id',
-          'is_staff',
-          'is_active',
-          'last_login',
-      )
+      read_only_fields = ('id', 'is_staff', 'is_active', 'last_login', 'created_at', 'updated_at')
 
    def validate_dni(self, value: str):
       if (not value.isnumeric()) or len(value) != 8:
@@ -40,10 +35,4 @@ class UserSingleSerializer(serializers.ModelSerializer):
           'groups',
           'user_permissions',
       )
-      read_only_fields = (
-          'id',
-          'email',
-          'last_login',
-          'is_staff',
-          'dni',
-      )
+      read_only_fields = ('id', 'email', 'last_login', 'is_staff', 'dni', 'created_at', 'updated_at')

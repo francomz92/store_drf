@@ -8,7 +8,7 @@ class UsersFilters(filterset.FilterSet):
    class Meta:
       model = get_user_model()
       fields = {
-          'email': ('contains', ),
+          'email': ('exact', ),
           'province': ('exact', ),
           'city': ('exact', ),
           'zip_code': ('exact', ),

@@ -69,7 +69,7 @@ class SignUpViewTests(APITestCase):
       url = get_account_activation_link(user_not_activated)
       response = self.client.get(url)
       data = response.json()
-      user_activated = User.objects.filter(email=user_not_activated.email).first()
+      user_activated = User.objects.filter(email=user_not_activated.__getattribute__('email')).first()
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertIn('message', data)
       self.assertIsNotNone(user_activated)
