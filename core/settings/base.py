@@ -19,6 +19,7 @@ LOCAL_APPS = [
     'apps.users.apps.UsersConfig',
     'apps.authentication.apps.AuthenticationConfig',
     'apps.shop.categories.apps.CategoriesConfig',
+    'apps.shop.products.apps.ProductsConfig',
 ]
 
 THIRD_APPS = [
@@ -122,6 +123,9 @@ ADMIN_REORDER = (
     {
         'app': 'categories',
         'label': 'Shop',
-        'models': ('categories.Category', )
+        'models': (
+            'categories.Category',
+            'products.Product',
+        )
     },
 )
