@@ -7,7 +7,7 @@ from django.db.models.signals import post_save
 from django.template.loader import get_template
 from django.conf import settings
 
-from django_rest_passwordreset.signals import reset_password_token_created, pre_password_reset
+from django_rest_passwordreset.signals import reset_password_token_created
 
 from utils.mail import create_html_mail
 from utils.auth import get_account_activation_link, get_password_reset_link

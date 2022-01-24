@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
                         dni: str,
                         password: Optional[str] = None,
                         is_superuser: Optional[bool] = True):
-      return self.create(email, password, dni=dni, is_superuser=is_superuser, is_staff=True)
+      return self.create(email, password, dni=dni, is_superuser=is_superuser, is_staff=True, is_active=True)
 
 
 class User(AbstractBaseUser, PermissionsMixin, GenericModel):

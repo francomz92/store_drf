@@ -23,12 +23,13 @@ LOCAL_APPS = [
 
 THIRD_APPS = [
     'rest_framework',
-    'rest_framework.authtoken',
+    #  'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'django_rest_passwordreset',
     'corsheaders',
     'django_filters',
+    'admin_reorder',
 ]
 
 INSTALLED_APPS = [*BASE_APPS, *LOCAL_APPS, *THIRD_APPS]
@@ -42,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'admin_reorder.middleware.ModelAdminReorder',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -96,3 +98,30 @@ LOGIN_URL = 'auth:login'
 LOGOUT_URL = 'auth:logout'
 
 AUTH_USER_MODEL = 'users.User'
+
+ADMIN_REORDER = (
+    {
+        'app': 'auth',
+        'label': 'Users',
+        'models': (
+            'users.User',
+            'auth.Group',
+        )
+    },
+    {
+        'app':
+        'token_blacklist',
+        'label':
+        'Tokens',
+        'models': (
+            'token_blacklist.BlacklistedToken',
+            'token_blacklist.OutstandingToken',
+            'django_rest_passwordreset.ResetPasswordToken',
+        )
+    },
+    {
+        'app': 'categories',
+        'label': 'Shop',
+        'models': ('categories.Category', )
+    },
+)
