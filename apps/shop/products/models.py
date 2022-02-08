@@ -18,6 +18,7 @@ class Product(GenericModel):
    class Meta:
       verbose_name = _('Product')
       verbose_name_plural = _('Products')
+      ordering = ('offer', )
 
    def on_sale(self):
       return self.offer
