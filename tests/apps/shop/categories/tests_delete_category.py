@@ -1,4 +1,4 @@
-from .imports import *
+from .dependencies_imports import *
 
 
 class ShopCategoriesDeleteViewTest(APITestCase):
