@@ -13,6 +13,7 @@ class Product(GenericModel):
    offer = models.BooleanField(verbose_name=_('Offer'), default=False)
    discount_rate = models.PositiveSmallIntegerField(verbose_name=_('Discount Rate'), default=0)
    stok = models.PositiveIntegerField(verbose_name=_('Stock'))
+   active = models.BooleanField(verbose_name=_('Active'), default=True)
 
    class Meta:
       verbose_name = _('Product')
@@ -25,6 +26,14 @@ class Product(GenericModel):
       if self.on_sale():
          return self.unit_price - (self.unit_price * self.discount_rate / 100)
       return self.unit_price
+
+   def _check_active(self):
+      if self.stok <= 1:
+         self.active = False
+
+   def save(self, *args, **kwargs):
+      self._check_active()
+      super().save(*args, **kwargs)
 
    def __str__(self):
       return self.name
