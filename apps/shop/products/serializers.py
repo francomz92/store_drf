@@ -6,7 +6,8 @@ from . import models
 
 
 class ProductSerializer(serializers.ModelSerializer):
-   category = category_serializers.CategorySerializer()
+
+   category = serializers.SlugRelatedField(slug_field='name', queryset=category_models.Category.objects.all())
 
    class Meta:
       model = models.Product
@@ -14,7 +15,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
    def to_representation(self, instance):
       data = super().to_representation(instance)
-      data['category'] = instance.category.name
       if not instance.image_url:
          data['image_url'] = ''
       return data

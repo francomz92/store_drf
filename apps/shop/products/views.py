@@ -17,7 +17,7 @@ class PublicProductListView(generics.ListAPIView):
       return self.model.objects.filter(active=True)
 
 
-class PrivateProductListView(generics.ListAPIView):
+class PrivateProductListView(generics.ListCreateAPIView):
    model = models.Product
    serializer_class = serializers.ProductSerializer
    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
