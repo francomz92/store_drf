@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractBaseUser
 
 User = get_user_model()
 
@@ -6,7 +7,7 @@ SUPERUSER = User.objects.get_or_create(email='root@example.com')[0]
 setattr(SUPERUSER, 'is_staff', True)
 
 
-def create_an_user(email: str, **kwargs) -> User:
+def create_an_user(email: str, **kwargs) -> AbstractBaseUser:
    return User.objects.create(first_name=kwargs.pop('first_name', 'pepe'),
                               email=email,
                               last_name=kwargs.pop('last_name', 'abc'),
