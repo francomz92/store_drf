@@ -11,12 +11,11 @@ from utils.tests.products import (
     create_product,
     get_products,
     get_product_detail_url,
-    PRIVATE_PRODUCTS_URL,
-    PUBLIC_PRODUCTS_URL,
+    reverse_lazy,
 )
 
 from apps.shop.products import models, serializers
-from apps.shop.categories import models as category_models
+from apps.shop.categories import models as category_models, serializers as category_serializers
 
 # def mock_category(name: str) -> Dict:
 #    category = mock.Mock(spec=category_models.Category)

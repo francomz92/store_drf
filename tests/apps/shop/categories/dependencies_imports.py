@@ -8,7 +8,7 @@ from utils.tests.categories import (
     create_category,
     get_category_detail_url,
     Category,
-    CATEGORY_URL,
+    reverse_lazy,
 )
 
 from apps.shop.categories import serializers

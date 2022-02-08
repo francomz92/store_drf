@@ -2,8 +2,6 @@ from django.urls import reverse_lazy
 
 from apps.shop.categories import models
 
-CATEGORY_URL = reverse_lazy('shop:categories:categories')
-
 Category = models.Category
 
 

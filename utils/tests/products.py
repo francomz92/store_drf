@@ -11,9 +11,6 @@ from apps.shop.categories import models as category_models
 
 _T = TypeVar("_T", bound=models.Model, covariant=True)
 
-PUBLIC_PRODUCTS_URL = reverse_lazy('shop:products:public_products')
-PRIVATE_PRODUCTS_URL = reverse_lazy('shop:products:private_products')
-
 
 def get_product_detail_url(id: int) -> str:
    return reverse_lazy('shop:products:product_detail', kwargs={'id': id})
