@@ -1,5 +1,8 @@
 from .dependencies_imports import *
 
+LOGIN_URL = reverse_lazy('auth:login')
+LOGOUT_URL = reverse_lazy('auth:logout')
+
 
 class LogOutViewTests(APITestCase):
 

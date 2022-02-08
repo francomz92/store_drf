@@ -1,5 +1,7 @@
 from .dependencies_imports import *
 
+SIGNUP_URL = reverse_lazy('auth:signup')
+
 
 class SignUpViewTests(APITestCase):
 

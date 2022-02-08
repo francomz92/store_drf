@@ -1,5 +1,7 @@
 from .dependencies_imports import *
 
+LOGIN_URL = reverse_lazy('auth:login')
+
 
 class LogInViewTests(APITestCase):
 

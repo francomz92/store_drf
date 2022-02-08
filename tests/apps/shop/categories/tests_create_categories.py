@@ -1,5 +1,7 @@
 from .dependencies_imports import *
 
+CATEGORY_URL = reverse_lazy('shop:categories:categories')
+
 
 class ShopCategoriesCreateViewTest(APITestCase):
 

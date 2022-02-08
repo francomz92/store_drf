@@ -1,5 +1,7 @@
 from .dependencies_imports import *
 
+PASSWORD_CHANGE_URL = reverse_lazy('auth:password_change')
+
 
 class PasswordChangeViewTests(APITestCase):
 

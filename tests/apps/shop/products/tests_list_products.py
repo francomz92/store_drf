@@ -1,5 +1,8 @@
 from .dependencies_imports import *
 
+PUBLIC_PRODUCTS_URL = reverse_lazy('shop:products:public_products')
+PRIVATE_PRODUCTS_URL = reverse_lazy('shop:products:private_products')
+
 
 class TestPublicListProductsView(APITestCase):
 
