@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, filters, permissions
 
 from django_filters.rest_framework import DjangoFilterBackend
@@ -15,6 +16,15 @@ class PublicProductListView(generics.ListAPIView):
 
    def get_queryset(self):
       return self.model.objects.filter(active=True)
+
+
+class PublicRetrieveProductView(generics.RetrieveAPIView):
+   model = models.Product
+   serializer_class = serializers.ProductSerializer
+   lookup_field = 'id'
+
+   def get_object(self):
+      return get_object_or_404(klass=self.model, id=self.kwargs['id'], active=True)
 
 
 class PrivateProductListView(generics.ListCreateAPIView):
