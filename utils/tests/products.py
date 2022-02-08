@@ -12,11 +12,11 @@ from apps.shop.categories import models as category_models
 _T = TypeVar("_T", bound=models.Model, covariant=True)
 
 
-def get_product_detail_url(id: int) -> str:
-   return reverse_lazy('shop:products:product_detail', kwargs={'id': id})
+def get_product_detail_url(name: str, id: int) -> str:
+   return reverse_lazy(f'shop:products:{name}', kwargs={'id': id})
 
 
-def create_product(category: Type[category_models.Category],
+def create_product(category: category_models.Category,
                    *,
                    name: str = None,
                    description: str,

@@ -94,9 +94,8 @@ class TestPrivateListProductsView(APITestCase):
    }
 
    def setUp(self) -> None:
-      category = create_category(name='some_category')
       self.payload = self.product_payload
-      self.payload.setdefault('category', category)
+      self.payload.setdefault('category', create_category(name='some_category'))
       create_product(**self.payload, active=False)
       self.user = get_or_create_user(email='root', dni='12345678', password='root')
       self.client = APIClient()
