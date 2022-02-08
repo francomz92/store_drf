@@ -1,6 +1,11 @@
 from django.urls import path
 
-from apps.shop.products.views import PrivateProductListView, PublicProductListView, PublicRetrieveProductView
+from apps.shop.products.views import (
+    PrivateProductListView,
+    PrivateUpdateProductView,
+    PublicProductListView,
+    PublicRetrieveProductView,
+)
 
 app_name = 'products'
 
@@ -11,4 +16,5 @@ urlpatterns = [
 
     # Private Endpoints
     path('products/private/', PrivateProductListView.as_view(), name='private_products'),
+    path('products/private/<int:id>/', PrivateUpdateProductView.as_view(), name='private_product_detail'),
 ]

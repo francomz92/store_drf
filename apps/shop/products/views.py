@@ -38,3 +38,13 @@ class PrivateProductListView(generics.ListCreateAPIView):
 
    def get_queryset(self):
       return self.model.objects.filter()
+
+
+class PrivateUpdateProductView(generics.UpdateAPIView):
+   model = models.Product
+   serializer_class = serializers.ProductSerializer
+   lookup_field = 'id'
+   permission_classes = (permissions.IsAuthenticated, )
+
+   def get_object(self):
+      return get_object_or_404(klass=self.model, id=self.kwargs['id'])
