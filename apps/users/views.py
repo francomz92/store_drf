@@ -1,30 +1,27 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import permissions
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.filters import SearchFilter
+from rest_framework import permissions, generics, filters
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .filters import UsersFilters
-from . import serializers
+from . import serializers, filters as users_filters
 
 
-class UsersListCreateView(ListCreateAPIView):
+class UsersListCreateView(generics.ListCreateAPIView):
    serializer_class = serializers.UsersListSerializer
-   model = serializer_class.Meta.model
+   model = serializers.get_user_model()
    permission_classes = (permissions.IsAuthenticated, )
-   filter_backends = (DjangoFilterBackend, SearchFilter)
-   filterset_class = UsersFilters
+   filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+   filterset_class = users_filters.UsersFilters
    search_fields = ('email', 'first_name', 'last_name')
 
    def get_queryset(self):
       return self.model.objects.all().order_by('-id')
 
 
-class UserRetrieveUpdateDeactiveView(RetrieveUpdateDestroyAPIView):
+class UserRetrieveUpdateDeactiveView(generics.RetrieveUpdateDestroyAPIView):
    serializer_class = serializers.UserSingleSerializer
-   model = serializer_class.Meta.model
+   model = serializers.get_user_model()
    permission_classes = (permissions.IsAdminUser, )
    lookup_field = 'id'
    lookup_url_kwarg = 'id'
