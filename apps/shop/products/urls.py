@@ -2,7 +2,8 @@ from django.urls import path
 
 from apps.shop.products.views import (
     PrivateProductListView,
-    PrivateUpdateProductView,
+    PrivateProductRetrieveUpdateDeactivateView,
+    PrivateProductDestroyView,
     PublicProductListView,
     PublicRetrieveProductView,
 )
@@ -16,5 +17,10 @@ urlpatterns = [
 
     # Private Endpoints
     path('products/private/', PrivateProductListView.as_view(), name='private_products'),
-    path('products/private/<int:id>/', PrivateUpdateProductView.as_view(), name='private_product_detail'),
+    path('products/private/<int:id>/',
+         PrivateProductRetrieveUpdateDeactivateView.as_view(),
+         name='private_product_detail'),
+    path('products/private/<int:id>/delete/',
+         PrivateProductDestroyView.as_view(),
+         name='private_product_delete'),
 ]

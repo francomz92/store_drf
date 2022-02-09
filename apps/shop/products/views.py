@@ -40,7 +40,21 @@ class PrivateProductListView(generics.ListCreateAPIView):
       return self.model.objects.filter()
 
 
-class PrivateUpdateProductView(generics.UpdateAPIView):
+class PrivateProductRetrieveUpdateDeactivateView(generics.RetrieveUpdateDestroyAPIView):
+   model = models.Product
+   serializer_class = serializers.ProductSerializer
+   lookup_field = 'id'
+   permission_classes = (permissions.IsAuthenticated, )
+
+   def get_object(self):
+      return get_object_or_404(klass=self.model, id=self.kwargs['id'])
+
+   def perform_destroy(self, instance):
+      setattr(instance, 'active', False)
+      instance.save()
+
+
+class PrivateProductDestroyView(generics.DestroyAPIView):
    model = models.Product
    serializer_class = serializers.ProductSerializer
    lookup_field = 'id'
