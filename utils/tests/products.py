@@ -18,7 +18,7 @@ def get_product_detail_url(name: str, id: int) -> str:
 
 def create_product(category: category_models.Category,
                    *,
-                   name: str = None,
+                   name: str = get_random_string(length=8),
                    description: str,
                    unit_price: float,
                    image_url: str = None,
@@ -27,7 +27,7 @@ def create_product(category: category_models.Category,
                    stok: int,
                    active: bool = True) -> Type[product_models.Product]:
    return product_models.Product.objects.create(category=category,
-                                                name=name or get_random_string(length=8),
+                                                name=name,
                                                 description=description,
                                                 unit_price=unit_price,
                                                 stok=stok,
