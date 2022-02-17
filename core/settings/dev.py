@@ -1,23 +1,25 @@
-from typing import Dict, List
 from datetime import timedelta
 
 from corsheaders.defaults import default_headers, default_methods
 
 from .base import *
 
-SECRET_KEY: str = 'django-insecure-=)%d-sqe9k=mg8c5*d%z1b^ve*e4_xb=0n0be^ry8_!rlr%#r)'
+SECRET_KEY = os.getenv('DRF_SECRET_KEY')
 
-DEBUG: bool = True
+DEBUG = True
 
-ALLOWED_HOSTS: List[str] = ['*']
+# Hosts Settings
+ALLOWED_HOSTS = ['*']
 
-DATABASES: Dict[str, Dict] = {
+# Datebases Settings
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+# Django Rest Framework Settings
 REST_FRAMEWORK = {
     #  'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer', ),
     'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser', ),
@@ -29,15 +31,20 @@ REST_FRAMEWORK = {
 }
 
 # CORS_ALLOW_ALL_ORIGIN = True
-
-CORS_ALLOWED_ORIGINS: List[str] = ['http://localhost:8000', 'http://*', 'https://*']
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://*',
+    'https://*',
+    'http://localhost:8080',
+]
 # CORS_ALLOWED_ORIGIN_REGEXES: List[str] = ['http://*', 'https://*']  # Para permitir patrones de url
-CORS_ALLOW_ALL_ORIGINS: bool = False
-CORS_ALLOW_CREDENTIALS: bool = False
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = False
 CORS_PREFLIGHT_MAX_AGE = 3600
 CORS_ALLOW_METHODS = list(default_methods)
 CORS_ALLOW_HEADERS = list(default_headers) + ['HTTP_AUTHORIZATION']
 
+# Simple JWR Settings
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(minutes=5),
@@ -60,15 +67,17 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(minutes=1),
 }
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  #'django.core.mail.backends.smtp.EmailBackend'
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = int(str(os.getenv('EMAIL_PORT')))
+EMAIL_PORT = int(os.getenv('EMAIL_PORT').__str__())
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+
+# Media Storage Settings
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DJANGO_REST_MULTITOKENAUTH_RESET_TOKEN_EXPIRY_TIME = 1
