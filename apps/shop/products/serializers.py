@@ -11,8 +11,8 @@ class ProductSerializer(serializers.ModelSerializer):
 
    class Meta:
       model = models.Product
-      fields = '__all__'
-      read_only_fields = ('id', 'create_at', 'update_at')
+      fields = serializers.ALL_FIELDS
+      read_only_fields = ('id', 'create_at', 'update_at', 'price_with_discount')
 
    def to_representation(self, instance):
       data = super().to_representation(instance)

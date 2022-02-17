@@ -59,8 +59,12 @@ class User(AbstractBaseUser, PermissionsMixin, GenericModel):
    #       if type(field) in (models.fields.CharField, models.fields.EmailField, models.fields.TextField):
    #          setattr(self, field.attname, self.__getattribute__(field.attname).lower())
 
-   # def save(self, *args, **kwargs) -> None:
+   # def clean(self) -> None:
    #    self.parse_fields()
+   #    return super().clean()
+
+   # def save(self, *args, **kwargs) -> None:
+   #    self.clean()
    #    return super().save(*args, **kwargs)
 
    class Meta:

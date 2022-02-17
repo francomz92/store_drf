@@ -12,6 +12,10 @@ class Product(GenericModel):
    image_url = models.ImageField(verbose_name=_('Image'), upload_to='products/images/', null=True, blank=True)
    offer = models.BooleanField(verbose_name=_('Offer'), default=False)
    discount_rate = models.PositiveSmallIntegerField(verbose_name=_('Discount Rate'), default=0)
+   price_with_discount = models.DecimalField(verbose_name=_('Price with discount'),
+                                             max_digits=8,
+                                             decimal_places=2,
+                                             default=0)
    stok = models.PositiveIntegerField(verbose_name=_('Stock'))
    active = models.BooleanField(verbose_name=_('Active'), default=True)
 
@@ -23,17 +27,22 @@ class Product(GenericModel):
    def on_sale(self):
       return self.offer
 
-   def get_price(self):
+   def _set_price(self):
+      self.price_with_discount = self.unit_price
       if self.on_sale():
-         return self.unit_price - (self.unit_price * self.discount_rate / 100)
-      return self.unit_price
+         self.price_with_discount = self.unit_price - (self.unit_price * self.discount_rate / 100)
 
    def _check_active(self):
       if self.stok <= 1:
          self.active = False
 
-   def save(self, *args, **kwargs):
+   def clean(self) -> None:
+      self._set_price()
       self._check_active()
+      return super().clean()
+
+   def save(self, *args, **kwargs):
+      self.clean()
       super().save(*args, **kwargs)
 
    def __str__(self):
