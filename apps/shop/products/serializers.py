@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.shop.categories import models as category_models, serializers as category_serializers
+from apps.shop.categories import models as category_models  #, serializers as category_serializers
 
 from . import models
 
@@ -12,6 +12,7 @@ class ProductSerializer(serializers.ModelSerializer):
    class Meta:
       model = models.Product
       fields = '__all__'
+      read_only_fields = ('id', 'create_at', 'update_at')
 
    def to_representation(self, instance):
       data = super().to_representation(instance)

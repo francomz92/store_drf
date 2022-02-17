@@ -12,7 +12,7 @@ class TestPublicListProductsView(APITestCase):
        'description': 'description 1',
        'unit_price': 1.0,
        'stok': 10,
-       'image_url': 'http://image_url.com',
+       'image_url': None,
        'offer': True,
        'discount_rate': 10,
    }
@@ -88,7 +88,7 @@ class TestPrivateListProductsView(APITestCase):
        'description': 'description 1',
        'unit_price': 1.0,
        'stok': 10,
-       'image_url': 'http://image_url.com',
+       'image_url': None,
        'offer': True,
        'discount_rate': 10,
    }

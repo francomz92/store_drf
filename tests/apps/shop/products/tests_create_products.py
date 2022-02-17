@@ -10,7 +10,7 @@ class TestPriveteCreateProductsView(APITestCase):
        'description': 'description 1',
        'unit_price': 1.0,
        'stok': 10,
-       'image_url': '',
+       'image_url': None,
        'offer': True,
        'discount_rate': 10,
    }
@@ -64,7 +64,7 @@ class TestPublicCreateProductsView(APITestCase):
        'description': 'description 1',
        'unit_price': 1.0,
        'stok': 10,
-       'image_url': '',
+       'image_url': None,
        'offer': True,
        'discount_rate': 10,
    }

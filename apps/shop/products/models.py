@@ -9,7 +9,7 @@ class Product(GenericModel):
    name = models.CharField(verbose_name=_('Name'), max_length=100)
    description = models.TextField(verbose_name=_('Description'), max_length=500)
    unit_price = models.DecimalField(verbose_name=_('Unit Price'), max_digits=8, decimal_places=2)
-   image_url = models.URLField(verbose_name=_('Image URL'), null=True, blank=True)
+   image_url = models.ImageField(verbose_name=_('Image'), upload_to='products/images/', null=True, blank=True)
    offer = models.BooleanField(verbose_name=_('Offer'), default=False)
    discount_rate = models.PositiveSmallIntegerField(verbose_name=_('Discount Rate'), default=0)
    stok = models.PositiveIntegerField(verbose_name=_('Stock'))

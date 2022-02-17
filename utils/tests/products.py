@@ -39,5 +39,4 @@ def create_product(category: category_models.Category,
 
 def get_products(**kwargs) -> QuerySet[_T]:
    """ Get a list of filtered products """
-   products = product_models.Product.objects.filter(**kwargs)
-   return products
+   return product_models.Product.objects.filter(**kwargs)
