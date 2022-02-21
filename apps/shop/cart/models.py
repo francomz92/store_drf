@@ -11,7 +11,11 @@ class Cart(GenericModel):
                                on_delete=models.CASCADE,
                                related_name='user_cart')
    # products = models.ManyToManyField(verbose_name=_('Products'), to='cart.CartItem', related_name='products')
-   total = models.DecimalField(verbose_name=_('Total'), max_digits=8, decimal_places=2, default=0)
+   total = models.DecimalField(verbose_name=_('Total'),
+                               max_digits=8,
+                               decimal_places=2,
+                               default=0,
+                               editable=False)
 
    class Meta:
       verbose_name = _('Cart')
@@ -45,7 +49,11 @@ class CartItem(GenericModel):
                                on_delete=models.CASCADE,
                                related_name='product_item')
    ammount = models.PositiveSmallIntegerField(verbose_name=_('Ammount'), default=0)
-   price = models.DecimalField(verbose_name=_('Price'), max_digits=8, decimal_places=2, default=0)
+   price = models.DecimalField(verbose_name=_('Price'),
+                               max_digits=8,
+                               decimal_places=2,
+                               default=0,
+                               editable=False)
 
    class Meta:
       verbose_name = _('Cart Item')

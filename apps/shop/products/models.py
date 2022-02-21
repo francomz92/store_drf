@@ -10,12 +10,13 @@ class Product(GenericModel):
    description = models.TextField(verbose_name=_('Description'), max_length=500)
    unit_price = models.DecimalField(verbose_name=_('Unit Price'), max_digits=8, decimal_places=2)
    image_url = models.ImageField(verbose_name=_('Image'), upload_to='products/images/', null=True, blank=True)
-   offer = models.BooleanField(verbose_name=_('Offer'), default=False)
+   offer = models.BooleanField(verbose_name=_('On sale'), default=False)
    discount_rate = models.PositiveSmallIntegerField(verbose_name=_('Discount Rate'), default=0)
    price_with_discount = models.DecimalField(verbose_name=_('Price with discount'),
                                              max_digits=8,
                                              decimal_places=2,
-                                             default=0)
+                                             default=0,
+                                             editable=False)
    stok = models.PositiveIntegerField(verbose_name=_('Stock'))
    active = models.BooleanField(verbose_name=_('Active'), default=True)
 
