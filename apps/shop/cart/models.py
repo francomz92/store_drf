@@ -10,7 +10,6 @@ class Cart(GenericModel):
                                to=get_user_model(),
                                on_delete=models.CASCADE,
                                related_name='user_cart')
-   # products = models.ManyToManyField(verbose_name=_('Products'), to='cart.CartItem', related_name='products')
    total = models.DecimalField(verbose_name=_('Total'),
                                max_digits=8,
                                decimal_places=2,
@@ -58,6 +57,7 @@ class CartItem(GenericModel):
    class Meta:
       verbose_name = _('Cart Item')
       verbose_name_plural = _('Cart Items')
+      ordering = ('cart', )
 
    def __str__(self) -> str:
       return f'{self.product.name}: {self.ammount}'
