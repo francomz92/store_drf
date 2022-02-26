@@ -25,7 +25,7 @@ def create_product(category: category_models.Category,
                    offer: bool = None,
                    discount_rate: int = None,
                    stok: int,
-                   active: bool = True) -> Type[product_models.Product]:
+                   active: bool = True) -> product_models.Product:
    return product_models.Product.objects.create(category=category,
                                                 name=name,
                                                 description=description,
