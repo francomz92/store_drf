@@ -75,9 +75,28 @@ class TestPrivateCreateCartItemView(APITestCase):
           'product': {
               **product_serializers.ProductSerializer(self.products[0]).data,
           },
+          'ammount': 'invalid',
       }
       url = get_cart_item_url(name='private_cart_items', user_id=self.user.id)
       response = self.client.post(url, data=payload, format='json')
       item = cart_models.CartItem.objects.filter(cart__user=self.user, product=self.products[0]).first()
       self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+      self.assertIsNone(item)
+
+   def test_try_to_create_cart_item_in_another_user(self):
+      """
+         Test that a user can't create a cart item in another user's cart.
+         This operation should return a 403 status code and not create a cart item.
+      """
+      other_user = get_or_create_user(email='another_user@email.com', dni='11111111', password='testpassword')
+      payload = {
+          'product': {
+              **product_serializers.ProductSerializer(self.products[1]).data,
+          },
+          'ammount': 3,
+      }
+      url = get_cart_item_url(name='private_cart_items', user_id=other_user.id)
+      response = self.client.post(url, data=payload, format='json')
+      item = cart_models.CartItem.objects.filter(cart__user=other_user, product=self.products[1]).first()
+      self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
       self.assertIsNone(item)

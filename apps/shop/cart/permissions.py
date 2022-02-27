@@ -6,9 +6,14 @@ from rest_framework import permissions
 class OwnCartItemsPermissions(permissions.BasePermission):
    """ Custom permission class for Cart app. """
 
-   def has_object_permission(self, request, view, obj):
-      """ Return `True` if permission is granted, `False` otherwise. """
-      if request.method in permissions.SAFE_METHODS:
-         return True
-      user = get_user_model().objects.filter(id=request['user_id']).first()
-      return obj.cart.id == getattr(user, 'user_cart').id if user else False
+   def has_permission(self, request, view):
+      request_user_id = request.parser_context['kwargs']['user_id']
+      current_user_id = view.request.user.id
+      return request_user_id == current_user_id
+
+   # def has_object_permission(self, request, view, obj):
+   #    user = get_user_model().objects.filter(id=request['user_id']).first()
+   #    print(obj.cart.id == getattr(user, 'user_cart').id if user else False)
+   #    if request.method in permissions.SAFE_METHODS:
+   #       return True
+   #    return obj.cart.id == getattr(user, 'user_cart').id if user else False

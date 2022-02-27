@@ -17,7 +17,7 @@ class CartItemSerializer(serializers.ModelSerializer):
    class Meta:
       model = CartItem
       exclude = ('cart', )
-      read_only_fields = ('price', )
+      read_only_fields = ('id', 'price')
 
    def create(self, validated_data):
       product = product_models.Product.objects.get(id=self.context['request'].data['product']['id'])
