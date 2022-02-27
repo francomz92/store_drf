@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, exceptions
 
 from apps.shop.products import (
     serializers as product_serializers,
@@ -22,5 +22,6 @@ class CartItemSerializer(serializers.ModelSerializer):
    def create(self, validated_data):
       product = product_models.Product.objects.get(id=self.context['request'].data['product']['id'])
       validated_data['product'] = product
-      if product.active and product.stok > 0:
+      if product.active and product.stok > 0 and validated_data['ammount'] <= product.stok:
          return super().create(validated_data)
+      raise exceptions.ValidationError({'detail': 'Product is not available'})

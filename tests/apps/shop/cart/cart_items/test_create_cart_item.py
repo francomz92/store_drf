@@ -100,3 +100,49 @@ class TestPrivateCreateCartItemView(APITestCase):
       item = cart_models.CartItem.objects.filter(cart__user=other_user, product=self.products[1]).first()
       self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
       self.assertIsNone(item)
+
+   def test_try_to_create_cart_item_without_stok(self):
+      """
+         Test that a user can't create a cart item with a product that has no stok.
+         This operation should return a 400 status code and not create a cart item.
+      """
+      product = create_product(category=self.products[0].category,
+                               description='asdasda',
+                               unit_price=1.0,
+                               offer=True,
+                               discount_rate=10,
+                               stok=0)
+      payload = {
+          'product': {
+              **product_serializers.ProductSerializer(product).data,
+          },
+          'ammount': 3,
+      }
+      url = get_cart_item_url(name='private_cart_items', user_id=self.user.id)
+      response = self.client.post(url, data=payload, format='json')
+      item = cart_models.CartItem.objects.filter(cart__user=self.user, product=product).first()
+      self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+      self.assertIsNone(item)
+   
+   def test_try_to_create_cart_item_with_product_stok_insufficient(self):
+      """
+         Test that a user can't create a cart item with a product that has insufficient stok.
+         This operation should return a 400 status code and not create a cart item.
+      """
+      product = create_product(category=self.products[0].category,
+                               description='asdasda',
+                               unit_price=1.0,
+                               offer=True,
+                               discount_rate=10,
+                               stok=1)
+      payload = {
+          'product': {
+              **product_serializers.ProductSerializer(product).data,
+          },
+          'ammount': 3,
+      }
+      url = get_cart_item_url(name='private_cart_items', user_id=self.user.id)
+      response = self.client.post(url, data=payload, format='json')
+      item = cart_models.CartItem.objects.filter(cart__user=self.user, product=product).first()
+      self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+      self.assertIsNone(item)
