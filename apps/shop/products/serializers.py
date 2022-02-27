@@ -17,5 +17,5 @@ class ProductSerializer(serializers.ModelSerializer):
    def to_representation(self, instance):
       data = super().to_representation(instance)
       if not instance.image_url:
-         data['image_url'] = ''
+         data['image_url'] = None
       return data

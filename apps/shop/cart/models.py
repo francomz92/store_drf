@@ -47,7 +47,7 @@ class CartItem(GenericModel):
                                to='products.Product',
                                on_delete=models.CASCADE,
                                related_name='product_item')
-   ammount = models.PositiveSmallIntegerField(verbose_name=_('Ammount'), default=0)
+   ammount = models.PositiveSmallIntegerField(verbose_name=_('Ammount'))
    price = models.DecimalField(verbose_name=_('Price'),
                                max_digits=8,
                                decimal_places=2,
@@ -70,6 +70,5 @@ class CartItem(GenericModel):
       return super().clean()
 
    def save(self, *args, **kwargs) -> None:
-      if self.product.active and self.product.stok > 0:
-         self.clean()
-         return super().save(*args, **kwargs)
+      self.clean()
+      return super().save(*args, **kwargs)

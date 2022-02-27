@@ -1,13 +1,11 @@
-from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-
 from rest_framework import generics, permissions
 
+from utils.users import get_current_user
 from .serializers import CartItemSerializer, CartItem
 from .permissions import OwnCartItemsPermissions
 
 
-class PrivateCartItemsListView(generics.ListAPIView):
+class PrivateCartItemsListView(generics.ListCreateAPIView):
    model = CartItem
    serializer_class = CartItemSerializer
    permission_classes = (
@@ -16,5 +14,9 @@ class PrivateCartItemsListView(generics.ListAPIView):
    )
 
    def get_queryset(self):
-      user = get_object_or_404(get_user_model(), id=self.kwargs['user_id'])
+      user = get_current_user(id=self.kwargs['user_id'])
       return CartItem.objects.filter(cart=getattr(user, 'user_cart'))
+
+   def perform_create(self, serializer):
+      user = get_current_user(id=self.kwargs['user_id'])
+      serializer.save(cart=getattr(user, 'user_cart'))
