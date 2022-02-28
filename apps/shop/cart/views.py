@@ -1,3 +1,6 @@
+from django.db.models import Model
+from django.shortcuts import get_object_or_404
+
 from rest_framework import generics, permissions, mixins, response, status, exceptions
 
 from utils.users import get_current_user
@@ -15,14 +18,14 @@ class PrivateListCartItemsView(generics.ListCreateAPIView):
 
    def get_queryset(self):
       user = get_current_user(id=self.kwargs['user_id'])
-      return CartItem.objects.filter(cart=getattr(user, 'user_cart'))
+      return self.model.objects.filter(cart=getattr(user, 'user_cart'))
 
    def perform_create(self, serializer):
       user = get_current_user(id=self.kwargs['user_id'])
       serializer.save(cart=getattr(user, 'user_cart'))
 
 
-class PrivateUpdateCartItemView(mixins.UpdateModelMixin, generics.GenericAPIView):
+class PrivateUpdateCartItemView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
    model = CartItem
    serializer_class = CartItemSerializer
    permission_classes = (
@@ -30,9 +33,9 @@ class PrivateUpdateCartItemView(mixins.UpdateModelMixin, generics.GenericAPIView
        OwnCartItemsPermissions,
    )
 
-   def get_object(self):
+   def get_object(self) -> CartItem | None:
       user = get_current_user(id=self.kwargs['user_id'])
-      return CartItem.objects.filter(id=self.kwargs['item_id'], cart=getattr(user, 'user_cart')).first()
+      return get_object_or_404(self.model, id=self.kwargs['item_id'], cart=getattr(user, 'user_cart'))
 
    def put(self, request, *args, **kwargs):
       serializer = self.get_serializer(self.get_object(), data=request.data, partial=True)
@@ -40,3 +43,10 @@ class PrivateUpdateCartItemView(mixins.UpdateModelMixin, generics.GenericAPIView
          serializer.save()
          return response.Response(serializer.data, status=status.HTTP_200_OK)
       raise exceptions.ValidationError(serializer.errors)
+
+   def delete(self, request, *args, **kwargs):
+      item = self.get_object()
+      if item:
+         item.delete()
+         return response.Response(status=status.HTTP_204_NO_CONTENT)
+      raise exceptions.NotFound(detail='Item not found.')
