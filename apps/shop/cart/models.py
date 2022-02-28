@@ -1,8 +1,6 @@
-from ast import Delete
-from itertools import product
 from django.contrib.auth import get_user_model
 
-from core.models import models, GenericModel, _
+from core.models import models, GenericModel, validators, _
 
 
 class Cart(GenericModel):
@@ -47,7 +45,8 @@ class CartItem(GenericModel):
                                to='products.Product',
                                on_delete=models.CASCADE,
                                related_name='product_item')
-   ammount = models.PositiveSmallIntegerField(verbose_name=_('Ammount'))
+   ammount = models.PositiveSmallIntegerField(verbose_name=_('Ammount'),
+                                              validators=[validators.MinValueValidator(1)])
    price = models.DecimalField(verbose_name=_('Price'),
                                max_digits=8,
                                decimal_places=2,

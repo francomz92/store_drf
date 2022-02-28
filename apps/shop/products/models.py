@@ -1,4 +1,4 @@
-from core.models import GenericModel, models, _
+from core.models import GenericModel, models, validators, _
 
 
 class Product(GenericModel):
@@ -8,16 +8,24 @@ class Product(GenericModel):
                                 related_name='category')
    name = models.CharField(verbose_name=_('Name'), max_length=100)
    description = models.TextField(verbose_name=_('Description'), max_length=500)
-   unit_price = models.DecimalField(verbose_name=_('Unit Price'), max_digits=8, decimal_places=2)
+   unit_price = models.DecimalField(verbose_name=_('Unit Price'),
+                                    max_digits=8,
+                                    decimal_places=2,
+                                    validators=[validators.MinValueValidator(0.01)])
    image_url = models.ImageField(verbose_name=_('Image'), upload_to='products/images/', null=True, blank=True)
    offer = models.BooleanField(verbose_name=_('On sale'), default=False)
-   discount_rate = models.PositiveSmallIntegerField(verbose_name=_('Discount Rate'), default=0)
+   discount_rate = models.PositiveSmallIntegerField(verbose_name=_('Discount Rate'),
+                                                    default=0,
+                                                    validators=[
+                                                        validators.MinValueValidator(1),
+                                                        validators.MaxValueValidator(100),
+                                                    ])
    price_with_discount = models.DecimalField(verbose_name=_('Price with discount'),
                                              max_digits=8,
                                              decimal_places=2,
                                              default=0,
                                              editable=False)
-   stok = models.PositiveIntegerField(verbose_name=_('Stock'))
+   stok = models.PositiveIntegerField(verbose_name=_('Stock'), validators=[validators.MinValueValidator(0)])
    active = models.BooleanField(verbose_name=_('Active'), default=True)
 
    class Meta:
