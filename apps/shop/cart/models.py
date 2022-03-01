@@ -71,3 +71,12 @@ class CartItem(GenericModel):
    def save(self, *args, **kwargs) -> None:
       self.clean()
       return super().save(*args, **kwargs)
+
+   @classmethod
+   def get_total_price(cls, cart_items: list) -> tuple:
+      total = 0
+      total_without_discount = 0
+      for item in cart_items:
+         total += float(item['price'])
+         total_without_discount += float(item['product']['unit_price']) * float(item['ammount'])
+      return total, total_without_discount
