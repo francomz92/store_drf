@@ -24,6 +24,25 @@ class PrivateListCartItemsView(generics.ListCreateAPIView):
       user = get_current_user(id=self.kwargs['user_id'])
       serializer.save(cart=getattr(user, 'user_cart'))
 
+   def get(self, request, *args, **kwargs):
+      page = self.paginate_queryset(self.get_queryset())
+      if page is not None:
+         serializer = self.get_serializer(page, many=True)
+         data = {
+             'items': serializer.data,
+             'total_price': self.model.get_total_price(serializer.data)[0],
+             'total_without_discount': self.model.get_total_price(serializer.data)[1],
+         }
+         return self.get_paginated_response(data)
+
+      serializer = self.get_serializer(self.get_queryset(), many=True)
+      data = {
+          'items': serializer.data,
+          'total_price': self.model.get_total_price(serializer.data)[0],
+          'total_without_discount': self.model.get_total_price(serializer.data)[1],
+      }
+      return response.Response(data=data, status=status.HTTP_200_OK)
+
 
 class PrivateUpdateCartItemView(mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
    model = CartItem

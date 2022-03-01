@@ -22,7 +22,6 @@ class TestPublicDeleteCartItemView(APITestCase):
          Test that a user can't delete a cart item without being authenticated.
          This operation should return a 401 status code.
       """
-      print('Test 1')
       url = get_cart_item_url(name='private_cart_item_detail',
                               user_id=self.user.id,
                               item_id=getattr(self.cart_item, 'id'))
