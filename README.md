@@ -1,4 +1,4 @@
-# **Store | Django Rest Framework | Env Variables**
+# **Env Variables**
 
 ## **Domain Variable**
 
