@@ -1,4 +1,4 @@
-from django.db.models import Model
+from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404
 
 from rest_framework import generics, permissions, mixins, response, status, exceptions
@@ -18,7 +18,8 @@ class PrivateListCartItemsView(generics.ListCreateAPIView):
 
    def get_queryset(self):
       user = get_current_user(id=self.kwargs['user_id'])
-      return self.model.objects.filter(cart=getattr(user, 'user_cart'))
+      return self.model.objects.prefetch_related(Prefetch('cart'), Prefetch('product')) \
+         .filter(cart=getattr(user, 'user_cart'))
 
    def perform_create(self, serializer):
       user = get_current_user(id=self.kwargs['user_id'])

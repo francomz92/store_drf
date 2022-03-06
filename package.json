@@ -1,0 +1,21 @@
+{
+   "name": "store_drf",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test:server": "cd server && python manage.py test",
+      "back": "cd server && python manage.py runserver"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/francomz92/store_drf.git"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/francomz92/store_drf/issues"
+   },
+   "homepage": "https://github.com/francomz92/store_drf#readme"
+}
