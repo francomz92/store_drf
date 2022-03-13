@@ -21,6 +21,7 @@ LOCAL_APPS = [
     'apps.shop.categories.apps.CategoriesConfig',
     'apps.shop.products.apps.ProductsConfig',
     'apps.shop.cart.apps.CartConfig',
+    'apps.shop.orders.apps.OrdersConfig',
 ]
 
 THIRD_APPS = [
@@ -123,13 +124,17 @@ ADMIN_REORDER = (
         )
     },
     {
-        'app': 'categories',
-        'label': 'Shop',
+        'app':
+        'categories',
+        'label':
+        'Shop',
         'models': (
             'categories.Category',
             'products.Product',
             'cart.Cart',
             'cart.CartItem',
+            'orders.Order',
+            'orders.OrderItem',
         )
     },
 )
