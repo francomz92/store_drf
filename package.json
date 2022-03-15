@@ -5,6 +5,7 @@
    "main": "index.js",
    "scripts": {
       "test:server": "cd server && python manage.py test",
+      "front": "nodemon client/server.js",
       "back": "cd server && python manage.py runserver"
    },
    "repository": {
@@ -17,5 +18,12 @@
    "bugs": {
       "url": "https://github.com/francomz92/store_drf/issues"
    },
-   "homepage": "https://github.com/francomz92/store_drf#readme"
+   "homepage": "https://github.com/francomz92/store_drf#readme",
+   "devDependencies": {
+      "nodemon": "2.0.15"
+   },
+   "dependencies": {
+      "express": "4.17.3"
+   },
+   "type": "module"
 }
