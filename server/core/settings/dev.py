@@ -33,9 +33,10 @@ REST_FRAMEWORK = {
 # CORS_ALLOW_ALL_ORIGIN = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
-    'http://*',
-    'https://*',
-    'http://localhost:8080',
+    'http://localhost:3333',
+    #  'http://*',
+    #  'https://*',
+    #  'http://localhost:8080',
 ]
 # CORS_ALLOWED_ORIGIN_REGEXES: List[str] = ['http://*', 'https://*']  # Para permitir patrones de url
 CORS_ALLOW_ALL_ORIGINS = False
