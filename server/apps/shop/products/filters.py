@@ -9,7 +9,7 @@ class ProductFilter(FilterSet):
       model = models.Product
       fields = {
           'name': ['exact'],
-          'category': ['exact'],
+          'category__name': ['exact'],
           'unit_price': ['gte', 'lte'],
           'offer': ['exact'],
       }
