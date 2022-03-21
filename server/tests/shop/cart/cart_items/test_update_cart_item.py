@@ -62,10 +62,10 @@ class TestPrivateUpdateCartItemView(APITestCase):
       self.assertIsNotNone(item)
       self.assertEqual(getattr(item, 'ammount'), payload['ammount'])
 
-   def test_try_to_update_with_invalid_data(self):
+   def test_try_to_update_with_ammount_lt_one(self):
       """
-         Test that a user can't update a cart item with invalid data.
-         This operation should return a 400 status code.
+         Test that a user can update a cart item with ammount lt 1.
+         This operation should return a 200 status code and delete item.
       """
       payload = {'ammount': -1}
       url = get_cart_item_url(name='private_cart_item_detail',
@@ -73,8 +73,8 @@ class TestPrivateUpdateCartItemView(APITestCase):
                               item_id=getattr(self.cart_item, 'id'))
       response = self.client.put(url, data=payload, format='json')
       item = cart_models.CartItem.objects.filter(id=getattr(self.cart_item, 'id')).first()
-      self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-      self.assertEqual(getattr(item, 'ammount'), self.cart_item.ammount)
+      self.assertEqual(response.status_code, status.HTTP_200_OK)
+      self.assertIsNone(item)
 
    def test_try_to_update_cart_item_with_ammount_greater_than_stok(self):
       """

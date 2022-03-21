@@ -92,7 +92,7 @@ class PrivateUpdateCartItemView(mixins.UpdateModelMixin, mixins.DestroyModelMixi
 
    def _clean_request_data(self, request):
       ''' Delete item if their amount is less than or equal to 0 '''
-      if int(request.data['amount']) < 1:
+      if int(request.data['ammount']) < 1:
          self.delete(request)
          return None
       return True
