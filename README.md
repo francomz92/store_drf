@@ -1,4 +1,4 @@
-# **Env Variables**
+# **Server Env Variables**
 
 ## **Domain Variable**
 
