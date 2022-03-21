@@ -1,9 +1,10 @@
 .foot-layout {
-   padding: 1rem;
+   width: 100%;
+   padding: 5rem 1rem;
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
    justify-content: center;
-   align-items: center;
+   /* align-items: center; */
    gap: 0.5rem;
 }
 
