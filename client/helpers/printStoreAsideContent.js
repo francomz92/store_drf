@@ -12,4 +12,5 @@ export const printStoreAsideContent = async () => {
       <summary>Filtros</summary>
    `;
    $aside.appendChild(selectFilter(categories));
+   return $aside;
 };
