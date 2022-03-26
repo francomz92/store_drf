@@ -6,6 +6,6 @@ const user = localStorage.getItem('user');
 document.addEventListener('DOMContentLoaded', async (e) => {
    let userData = null;
    if (user) userData = JSON.parse(user);
-   printHeader(userData.user);
+   printHeader(userData);
    storeSectionHandler(userData);
 });

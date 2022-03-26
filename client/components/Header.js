@@ -1,4 +1,4 @@
-export const header = (currentUser) => {
+export const header = (userData) => {
    const $header = document.createElement('header');
    const $img = document.createElement('img');
    const $nav = document.createElement('nav');
@@ -23,10 +23,10 @@ export const header = (currentUser) => {
       </li>
    `;
 
-   if (currentUser) {
+   if (userData) {
       $ul.innerHTML += `
          <li>
-            <p class="user">${currentUser.email}</p>
+            <p class="user">${userData.user.email}</p>
          </li>
          <li>
             <button id="cart"></button>
