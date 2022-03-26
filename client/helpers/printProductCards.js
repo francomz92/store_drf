@@ -2,7 +2,7 @@ import { card } from '../components/Card.js';
 import { getProductsData } from '../apis/getProducts.js';
 import { setLinkStyles } from './setLinkStyle.js';
 
-export const prinProductCards = async () => {
+export const printProductCards = async () => {
    const $grid = document.getElementById('card-grid');
    const data = await getProductsData();
    if (data.results.length > 0) {
@@ -11,4 +11,5 @@ export const prinProductCards = async () => {
          $grid.appendChild(card(product));
       });
    }
+   return { $grid, data };
 };

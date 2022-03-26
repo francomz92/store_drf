@@ -2,7 +2,7 @@ export const card = (data) => {
    const $card = document.createElement('article');
    $card.setAttribute('id', data.id);
    $card.innerHTML = `
-      <img src="${data.image_url}" alt="${data.name}" />
+      <img src="${data.image_url || '../assets/img/default-no-image.png'}" alt="${data.name}" />
       <h5>${data.name}</h5>
       `;
    if (data.offer) {
