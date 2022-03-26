@@ -26,7 +26,7 @@ export const header = (currentUser) => {
    if (currentUser) {
       $ul.innerHTML += `
          <li>
-            <p class="user">${currentUser.username}</p>
+            <p class="user">${currentUser.email}</p>
          </li>
          <li>
             <button id="cart"></button>
