@@ -3,7 +3,7 @@ export const selectFilter = (categories) => {
 
    $select.setAttribute('name', 'category');
    $select.innerHTML = `
-      <option selected>Elige una categoría</option>
+      <option selected value="">Elige una categoría</option>
    `;
 
    categories.forEach((category) => {
