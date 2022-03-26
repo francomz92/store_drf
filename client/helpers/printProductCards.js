@@ -1,15 +1,16 @@
 import { card } from '../components/Card.js';
-import { getProductsData } from '../apis/getProducts.js';
 import { setLinkStyles } from './setLinkStyle.js';
 
-export const printProductCards = async () => {
+export const printProductCards = (data) => {
    const $grid = document.getElementById('card-grid');
-   const data = await getProductsData();
+   setLinkStyles('./assets/styles/card.css');
+
    if (data.results.length > 0) {
-      setLinkStyles('./assets/styles/card.css');
       data.results.forEach((product) => {
          $grid.appendChild(card(product));
       });
+   } else {
+      $grid.innerHTML = '<h3 class="card-grid-empty">There are no products to display</h3>';
    }
    return { $grid, data };
 };
