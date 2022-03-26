@@ -13,7 +13,7 @@ class PrivateListCartItemsView(generics.ListCreateAPIView):
    serializer_class = CartItemSerializer
    permission_classes = (
        permissions.IsAuthenticated,
-       OwnCartItemsPermissions,
+       #  OwnCartItemsPermissions,
    )
 
    def get_queryset(self):
@@ -55,7 +55,7 @@ class PrivateListCartItemsView(generics.ListCreateAPIView):
       data = request.data.copy()
       existent_item = self.get_queryset().filter(product__id=data['product']['id']).first()
       if existent_item is not None and int(data['product']['id']) == existent_item.product.id:
-         existent_item.amount += 1
+         existent_item.ammount += 1
          existent_item.save()
          data = None
       return data, existent_item
