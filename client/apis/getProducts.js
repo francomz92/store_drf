@@ -11,7 +11,7 @@
 const getFilters = (filters) => {
    let setedFilters = '';
    for (const key in filters) {
-      if (Object.hasOwnProperty.call(filters, key) && Boolean(filters[key]) !== false) {
+      if (Object.hasOwnProperty.call(filters, key) && filters[key] !== null) {
          setedFilters += `${key}=${filters[key]}&`;
       }
    }
