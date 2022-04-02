@@ -1,15 +1,15 @@
-export const selectFilter = (categories) => {
+export const selectFilter = (nameAttr, objArray) => {
    const $select = document.createElement('select');
 
-   $select.setAttribute('name', 'category');
+   $select.setAttribute('name', nameAttr);
    $select.innerHTML = `
-      <option selected value="">Elige una categoría</option>
+      <option selected value="">Todos</option>
    `;
 
-   categories.forEach((category) => {
+   objArray.forEach((obj) => {
       const $option = document.createElement('option');
-      $option.setAttribute('value', category.name);
-      $option.textContent = category.name;
+      $option.setAttribute('value', obj.name);
+      $option.textContent = obj.name;
       $select.appendChild($option);
    });
 
