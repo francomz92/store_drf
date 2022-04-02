@@ -1,20 +1,20 @@
-# **Server Env Variables**
+## **Server Env Variables**
 
-## **Domain Variable**
+### **Domain Variable**
 
 - DOMAIN
 
-## **Django Secret Key Variable**
+### **Django Secret Key Variable**
 
 - DRF_SECRET_KEY
 
-## **JWT Variables**
+### **JWT Variables**
 
 - TOKEN_LIFETIME
 - TOKEN_REFRESH_LIFETIME
 - ENCRYPTION_TYPE
 
-## **Email Variables**
+### **Email Variables**
 
 - EMAIL_HOST
 - EMAIL_PORT
@@ -22,7 +22,7 @@
 - EMAIL_HOST_PASSWORD
 - DEFAULT_FROM_EMAIL
 
-## **DB Variables**
+### **DB Variables**
 
 - DB_ENGINE
 - DB_NAME
@@ -31,7 +31,7 @@
 - DB_HOST
 - DB_PORT
 
-## **AWS S3 Variables**
+### **AWS S3 Variables**
 
 - S3_ACCESS_KEY
 - S3_SECRET_ACCESS_KEY
