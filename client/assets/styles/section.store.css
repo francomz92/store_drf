@@ -5,6 +5,14 @@
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 } */
 
+select {
+   width: 156px;
+   height: 2em;
+   background-color: #eee;
+   border: none;
+   border-radius: 5px;
+   text-align: center;
+}
 .store-section {
    width: 100%;
    display: flex;

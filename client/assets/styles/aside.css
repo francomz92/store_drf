@@ -15,17 +15,6 @@
    display: inline-block;
    margin-bottom: 0.3rem;
 }
-.aside-filter-container > select {
-   width: 156px;
-   height: 2em;
-   /* display: flex;
-   flex-direction: column;
-   justify-content: space-between; */
-   background-color: #eee;
-   border: none;
-   border-radius: 5px;
-   text-align: center;
-}
 .aside-filter-container > input[type='checkbox'] {
    margin-left: 1rem;
 }
