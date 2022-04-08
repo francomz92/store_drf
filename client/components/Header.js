@@ -1,5 +1,6 @@
 export const header = (userData) => {
    const $header = document.createElement('header');
+   const $a = document.createElement('a');
    const $img = document.createElement('img');
    const $nav = document.createElement('nav');
    const $ul = document.createElement('ul');
@@ -7,6 +8,7 @@ export const header = (userData) => {
    $header.classList.add('header');
    $ul.classList.add('header__nav');
    $img.classList.add('header-logo');
+   $a.setAttribute('href', '/');
 
    $img.setAttribute('src', '../assets/img/logo.png');
    $img.setAttribute('alt', 'STORE');
@@ -47,7 +49,8 @@ export const header = (userData) => {
    }
 
    $nav.appendChild($ul);
-   $header.appendChild($img);
+   $a.appendChild($img);
+   $header.appendChild($a);
    $header.appendChild($nav);
 
    return $header;
