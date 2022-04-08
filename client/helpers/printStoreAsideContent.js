@@ -9,14 +9,15 @@ export const printStoreAsideContent = async () => {
    const categories = await getCategories();
 
    setLinkStyles('../assets/styles/aside.css');
-
+   // SelectFilter for Categories
    $aside.appendChild(
       filterContainer({
          labelName: 'Categoría:',
          labelReference: 'category',
-         filter: selectFilter('category', categories),
+         filter: selectFilter({ nameAttr: 'category', objArray: categories, placeHolder: 'Todos' }),
       })
    );
+   // CheckboxFilter for Offers
    $aside.appendChild(
       filterContainer({ labelName: 'En oferta: ', labelReference: 'offer', filter: checkBoxFilter('offer') })
    );
