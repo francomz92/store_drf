@@ -1,4 +1,4 @@
-export const setCartItem = async (userData, item) => {
+export const addItemToCart = async (userData, item) => {
    try {
       const response = await fetch(`http://localhost:8000/api/shop/cart/${userData.user.id}/cart_items/`, {
          method: 'POST',
@@ -10,6 +10,6 @@ export const setCartItem = async (userData, item) => {
       });
       if (!response.ok) throw response;
    } catch (error) {
-      console.log(error.statusText || 'Error');
+      alert(error.statusText || 'Error');
    }
 };
