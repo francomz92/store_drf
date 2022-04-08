@@ -19,7 +19,7 @@ class Cart(GenericModel):
       verbose_name_plural = _('Carts')
 
    def __str__(self) -> str:
-      return f'{self.user.first_name}\'s Cart'
+      return f'{getattr(self.user, "first_name")}\'s Cart'
 
    def _set_total(self):
       self.total = 0
@@ -59,10 +59,10 @@ class CartItem(GenericModel):
       ordering = ('cart', )
 
    def __str__(self) -> str:
-      return f'{self.product.name}: {self.ammount}'
+      return f'{getattr(self.product, "name")}: {self.ammount}'
 
    def _set_price(self):
-      self.price = self.product.price_with_discount * self.ammount
+      self.price = getattr(self.product, 'price_with_discount') * self.ammount
 
    def clean(self) -> None:
       self._set_price()

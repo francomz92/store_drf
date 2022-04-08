@@ -66,7 +66,7 @@ class PrivateUpdateCartItemView(mixins.UpdateModelMixin, mixins.DestroyModelMixi
    serializer_class = CartItemSerializer
    permission_classes = (
        permissions.IsAuthenticated,
-       OwnCartItemsPermissions,
+       #  OwnCartItemsPermissions,
    )
 
    def get_object(self) -> CartItem | None:
