@@ -10,6 +10,7 @@
 }
 .aside-filter-container {
    width: 100%;
+   padding: 0.5rem 0;
 }
 .aside-filter-container > label {
    display: inline-block;
