@@ -1,11 +1,16 @@
 import { printHeader } from './helpers/printHeader.js';
 import { storeSectionHandler } from './handlers/storeSectionHandler.js';
+import { getCart } from './apis/getCart.js';
 
 const user = localStorage.getItem('user');
+let userData = null;
+let cart = null;
 
 document.addEventListener('DOMContentLoaded', async (e) => {
-   let userData = null;
-   if (user) userData = JSON.parse(user);
-   printHeader(userData);
-   storeSectionHandler(userData);
+   if (user) {
+      userData = JSON.parse(user);
+      cart = await getCart(userData);
+   }
+   printHeader(userData, cart);
+   storeSectionHandler(userData, cart);
 });
