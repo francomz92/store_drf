@@ -3,6 +3,7 @@ import { getCategories } from '../apis/getCategories.js';
 import { selectFilter } from '../components/SelectFilter.js';
 import { checkBoxFilter } from '../components/CheckBoxFilter.js';
 import { filterContainer } from '../components/FilterContainer.js';
+import { rangeFilter } from '../components/RangeFilter.js';
 
 export const printStoreAsideContent = async () => {
    const $aside = document.querySelector('.store-aside');
@@ -21,5 +22,11 @@ export const printStoreAsideContent = async () => {
    $aside.appendChild(
       filterContainer({ labelName: 'En oferta: ', labelReference: 'offer', filter: checkBoxFilter('offer') })
    );
+   $aside.appendChild(
+      filterContainer({
+         filter: rangeFilter('unit_price__gte', 'unit_price__lte'),
+      })
+   );
+
    return $aside;
 };
