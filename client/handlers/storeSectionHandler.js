@@ -6,7 +6,7 @@ import { initCardClickEvent } from '../events/onClick.js';
 import { initStoreSectionChangeEvent } from '../events/onChange.js';
 import { printProductOrderingSelect } from '../helpers/printProductOrderingFilter.js';
 
-export const storeSectionHandler = async (userData) => {
+export const storeSectionHandler = async (userData, cart) => {
    setLinkStyles('../assets/styles/section.store.css');
 
    const $aside = await printStoreAsideContent();
@@ -16,7 +16,7 @@ export const storeSectionHandler = async (userData) => {
 
    printProductOrderingSelect($storeSection);
    if (userData) {
-      initCardClickEvent({ nodeListening: $grid, ProductData: productData, userData: userData });
+      initCardClickEvent({ nodeListening: $grid, ProductData: productData, userData: userData }, cart);
    }
    initStoreSectionChangeEvent({ nodeListening: $storeSection });
 };
