@@ -1,4 +1,4 @@
-export const header = (userData) => {
+export const header = (userData, cart) => {
    const $header = document.createElement('header');
    const $a = document.createElement('a');
    const $img = document.createElement('img');
@@ -27,7 +27,7 @@ export const header = (userData) => {
 
    if (userData) {
       $ul.innerHTML += `
-         <li>
+      <li>
             <p class="user">${userData.user.email}</p>
          </li>
          <li>
@@ -35,8 +35,11 @@ export const header = (userData) => {
          </li>
          <div class="auth-buttons">
             <a href="/#sign-out">Sign Out</a>
-         </div>
+            </div>
       `;
+      if (cart.results.items.length > 0) {
+         $ul.querySelector('#cart').textContent = cart.results.items.length;
+      }
    } else {
       $ul.innerHTML += `
          <li>
