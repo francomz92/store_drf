@@ -27,19 +27,16 @@ export const header = (userData, cart) => {
 
    if (userData) {
       $ul.innerHTML += `
-      <li>
+         <li>
             <p class="user">${userData.user.email}</p>
          </li>
          <li>
-            <button id="cart"></button>
+            <button id="cart">${cart.results.items.length > 0 ? cart.results.items.length : ''}</button>
          </li>
          <div class="auth-buttons">
             <a href="/#sign-out">Sign Out</a>
-            </div>
+         </div>
       `;
-      if (cart.results.items.length > 0) {
-         $ul.querySelector('#cart').textContent = cart.results.items.length;
-      }
    } else {
       $ul.innerHTML += `
          <li>

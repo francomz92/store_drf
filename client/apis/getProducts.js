@@ -25,10 +25,10 @@ export const getProductsData = async (queryFilters) => {
    try {
       const filters = getFilters(queryFilters);
       const response = await fetch(`http://localhost:8000/api/shop/products/public/?${filters}`);
-      const products = await response.json();
+      const productsData = await response.json();
       if (!response.ok) throw response;
-      return products;
+      return productsData;
    } catch (error) {
-      console.log(error.statusText || 'Error');
+      alert(error.statusText || 'Error');
    }
 };

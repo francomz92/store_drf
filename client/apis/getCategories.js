@@ -5,6 +5,6 @@ export const getCategories = async () => {
       if (!response.ok) throw response;
       return categoriesData.results;
    } catch (error) {
-      console.log(error.statusText || 'Error');
+      alert(error.statusText || 'Error');
    }
 };

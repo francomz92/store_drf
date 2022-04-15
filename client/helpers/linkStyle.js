@@ -1,4 +1,4 @@
-export const setLinkStyles = (directory) => {
+export const loadStyles = (directory) => {
    const $link = document.createElement('link');
    $link.setAttribute('href', directory);
    $link.setAttribute('rel', 'stylesheet');

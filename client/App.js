@@ -1,4 +1,4 @@
-import { printHeader } from './helpers/printHeader.js';
+import { printHeader } from './helpers/header.js';
 import { storeSectionHandler } from './handlers/storeSectionHandler.js';
 import { getCart } from './apis/getCart.js';
 

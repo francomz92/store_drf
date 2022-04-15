@@ -1,4 +1,4 @@
-import { setLinkStyles } from './setLinkStyle.js';
+import { loadStyles } from './linkStyle.js';
 import { getCategories } from '../apis/getCategories.js';
 import { selectFilter } from '../components/SelectFilter.js';
 import { checkBoxFilter } from '../components/CheckBoxFilter.js';
@@ -9,7 +9,7 @@ export const printStoreAsideContent = async () => {
    const $aside = document.querySelector('.store-aside');
    const categories = await getCategories();
 
-   setLinkStyles('../assets/styles/aside.css');
+   loadStyles('../assets/styles/aside.css');
    // SelectFilter for Categories
    $aside.appendChild(
       filterContainer({
@@ -22,6 +22,7 @@ export const printStoreAsideContent = async () => {
    $aside.appendChild(
       filterContainer({ labelName: 'En oferta: ', labelReference: 'offer', filter: checkBoxFilter('offer') })
    );
+   // RangeFilter for Unit Price
    $aside.appendChild(
       filterContainer({
          filter: rangeFilter('unit_price__gte', 'unit_price__lte'),

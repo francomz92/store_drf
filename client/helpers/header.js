@@ -1,7 +1,7 @@
 import { header } from '../components/Header.js';
-import { setLinkStyles } from './setLinkStyle.js';
+import { loadStyles } from './linkStyle.js';
 
 export const printHeader = (userData, cart) => {
-   setLinkStyles('../assets/styles/index.header.css');
+   loadStyles('../assets/styles/index.header.css');
    document.body.insertAdjacentElement('afterbegin', header(userData, cart));
 };
