@@ -1,7 +1,7 @@
 import { addItemToCart } from '../apis/setCartItem.js';
 import { getCart } from '../apis/getCart.js';
 
-export const initCardClickEvent = ({ nodeListening, ProductData, userData }, cart) => {
+export const initCardClickEvent = ({ nodeListening, ProductData, userData, cart }) => {
    nodeListening.querySelectorAll('article').forEach((article) => {
       article.addEventListener('click', async (e) => {
          e.preventDefault();

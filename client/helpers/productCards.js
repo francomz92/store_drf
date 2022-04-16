@@ -1,10 +1,14 @@
+import { getProductsData } from '../apis/getProducts.js';
 import { card } from '../components/ProductCard.js';
-import { loadStyles } from './linkStyle.js';
 
-export const printProductCards = (productData) => {
-   const $grid = document.getElementById('card-grid');
+export const printProductCards = async (sectionNode, filters) => {
+   const productData = await getProductsData(filters);
+   let $grid = sectionNode.querySelector('#card-grid') || document.createElement('div');
 
-   loadStyles('./assets/styles/card.css');
+   $grid.innerHTML = '';
+   $grid.classList.add('foot-layout');
+   $grid.setAttribute('id', 'card-grid');
+
    // Set product card
    if (productData.results.length > 0) {
       productData.results.forEach((product) => $grid.appendChild(card(product)));

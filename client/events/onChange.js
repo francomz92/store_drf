@@ -1,16 +1,6 @@
-import { getProductsData } from '../apis/getProducts.js';
 import { printProductCards } from '../helpers/productCards.js';
 
-const filters = {
-   category__name: null,
-   name: null,
-   unit_price__gte: 0,
-   unit_price__lte: null,
-   offer: null,
-   ordering: null,
-};
-
-export const initStoreSectionChangeEvent = ({ nodeListening }) => {
+export const initStoreSectionChangeEvent = ({ nodeListening, filters }) => {
    nodeListening.addEventListener('change', async (e) => {
       e.preventDefault();
       // Aside category filter
@@ -40,8 +30,6 @@ export const initStoreSectionChangeEvent = ({ nodeListening }) => {
          e.target.previousElementSibling.textContent = `Desde: $${e.target.value}`;
       }
 
-      const productsResponse = await getProductsData(filters);
-      document.getElementById('card-grid').innerHTML = '';
-      printProductCards(productsResponse);
+      await printProductCards(nodeListening, filters);
    });
 };
