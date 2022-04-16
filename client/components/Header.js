@@ -15,7 +15,7 @@ export const header = (userData, cart) => {
 
    $ul.innerHTML = `
       <li>
-         <a href="/">Home</a>
+         <a href="/#home">Home</a>
       </li>
       <li>
          <a href="/#store">Store</a>

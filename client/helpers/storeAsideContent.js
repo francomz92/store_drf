@@ -1,4 +1,3 @@
-import { loadStyles } from './linkStyle.js';
 import { getCategories } from '../apis/getCategories.js';
 import { selectFilter } from '../components/SelectFilter.js';
 import { checkBoxFilter } from '../components/CheckBoxFilter.js';
@@ -6,10 +5,10 @@ import { filterContainer } from '../components/FilterContainer.js';
 import { rangeFilter } from '../components/RangeFilter.js';
 
 export const printStoreAsideContent = async () => {
-   const $aside = document.querySelector('.store-aside');
+   const $aside = document.createElement('aside');
    const categories = await getCategories();
 
-   loadStyles('../assets/styles/aside.css');
+   $aside.classList.add('store-aside');
    // SelectFilter for Categories
    $aside.appendChild(
       filterContainer({

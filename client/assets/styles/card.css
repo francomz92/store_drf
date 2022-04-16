@@ -1,16 +1,4 @@
-.card-grid-empty {
-   font-size: 19px;
-   text-align: center;
-}
-.foot-layout {
-   width: 100%;
-   padding: 5rem 1rem;
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
-   justify-content: center;
-   gap: 0.5rem;
-   position: relative;
-}
+
 .foot-layout > article {
    height: 17rem;
    position: relative;
@@ -93,13 +81,6 @@
    top: -50px;
    right: 0;
    left: -50px;
-}
-.ordering-select {
-   width: 153px;
-   position: absolute;
-   top: 2rem;
-   right: 0rem;
-   margin-right: 2rem;
 }
 .price-discount {
    font-size: 18px;
