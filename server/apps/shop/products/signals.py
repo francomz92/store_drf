@@ -7,4 +7,5 @@ from .models import Product
 @receiver(signal=post_save, sender=Product)
 def product_post_save(sender, instance, created, **kwargs):
    for item in instance.product_item.all():
-      item.save()
+      if item.product == instance:
+         item.save()
