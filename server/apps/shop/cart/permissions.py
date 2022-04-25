@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 
-from rest_framework import permissions
+from rest_framework import permissions, exceptions
 
 
 class OwnCartItemsPermissions(permissions.BasePermission):
@@ -9,6 +9,8 @@ class OwnCartItemsPermissions(permissions.BasePermission):
    def has_permission(self, request, view):
       request_user_id = request.parser_context['kwargs']['user_id']
       current_user_id = view.request.user.id
+      if request_user_id != current_user_id:
+         raise exceptions.PermissionDenied()
       return request_user_id == current_user_id
 
    # def has_object_permission(self, request, view, obj):

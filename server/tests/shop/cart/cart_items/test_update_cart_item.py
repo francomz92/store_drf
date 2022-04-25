@@ -95,7 +95,7 @@ class TestPrivateUpdateCartItemView(APITestCase):
          Test that a user can't update a cart item in another user.
          This operation should return a 403 status code.
       """
-      payload = {'ammount': self.product.stok + 1}
+      payload = {'ammount': 1}
       user = get_or_create_user(email='another_user@email.com', dni='11122221', password='testpassword')
       url = get_cart_item_url(name='private_cart_item_detail',
                               user_id=user.id,

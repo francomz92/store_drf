@@ -5,5 +5,5 @@ from .views import OrderListView
 app_name = 'orders'
 
 urlpatterns = [
-    path('<int:user_id>/orders/', OrderListView.as_view(), name='private_orders'),
+    path('private/<int:user_id>/orders/', OrderListView.as_view(), name='private_orders'),
 ]

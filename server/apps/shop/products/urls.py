@@ -12,15 +12,15 @@ app_name = 'products'
 
 urlpatterns = [
     # Public Endpoints
-    path('products/public/', PublicProductListView.as_view(), name='public_products'),
-    path('products/public/<int:id>/', PublicRetrieveProductView.as_view(), name='public_product_detail'),
+    path('public/products/', PublicProductListView.as_view(), name='public_products'),
+    path('public/products/<int:id>/', PublicRetrieveProductView.as_view(), name='public_product_detail'),
 
     # Private Endpoints
-    path('products/private/', PrivateProductListCreateView.as_view(), name='private_products'),
-    path('products/private/<int:id>/',
+    path('private/products/', PrivateProductListCreateView.as_view(), name='private_products'),
+    path('private/products/<int:id>/',
          PrivateProductRetrieveUpdateDeactivateView.as_view(),
          name='private_product_detail'),
-    path('products/private/<int:id>/delete/',
+    path('private/products/<int:id>/delete/',
          PrivateProductDestroyView.as_view(),
          name='private_product_delete'),
 ]
