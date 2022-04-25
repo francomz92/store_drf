@@ -1,7 +1,6 @@
 import { printHeader } from './helpers/header.js';
-import { storeSectionHandler } from './handlers/storeSectionHandler.js';
 import { getCart } from './apis/getCart.js';
-import { loadStyles } from './helpers/linkStyle.js';
+import { loadStoreSection } from './helpers/loaders/storeSection.js';
 
 const user = localStorage.getItem('user');
 let userData = null;
@@ -15,21 +14,19 @@ document.addEventListener('DOMContentLoaded', async (e) => {
    }
    printHeader(userData, cart);
 
+   // On load specific path url
    if (location.hash === '#store') {
       document.head.querySelector('title').textContent = 'Store';
-      loadStoreSection($main);
+      loadStoreSection($main, userData, cart);
    } else if (location.hash === '#contact') {
       document.head.querySelector('title').textContent = 'Contact';
    } else document.head.querySelector('title').textContent = 'Home';
 
+   // On change path url event
    window.addEventListener('hashchange', (e) => {
       if (e.newURL.match('/#store')) {
-         // loadStyles('../assets/styles/section.store.css');
-         // loadStyles('../assets/styles/aside.css');
-         // loadStyles('./assets/styles/card.css');
-         // storeSectionHandler($main, userData, cart);
          document.head.querySelector('title').textContent = 'Store';
-         loadStoreSection($main);
+         loadStoreSection($main, userData, cart);
       } else if (e.newURL.match('/#contact')) {
          document.head.querySelector('title').textContent = 'Contact';
          $main.innerHTML = '';
@@ -39,23 +36,3 @@ document.addEventListener('DOMContentLoaded', async (e) => {
       }
    });
 });
-
-function loadSection({ nodeMain, data = [], callback, stylesDir = [] }) {
-   if (stylesDir.length > 0) {
-      stylesDir.forEach((style) => loadStyles(style));
-   }
-   callback(nodeMain, ...data);
-}
-
-function loadStoreSection(main) {
-   loadSection({
-      nodeMain: main,
-      data: [userData, cart],
-      callback: storeSectionHandler,
-      stylesDir: [
-         '../assets/styles/section.store.css',
-         '../assets/styles/aside.css',
-         './assets/styles/card.css',
-      ],
-   });
-}
