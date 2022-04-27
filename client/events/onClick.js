@@ -1,5 +1,5 @@
-import { addItemToCart } from '../apis/setCartItem.js';
-import { getCart } from '../apis/getCart.js';
+import { addItemToCart } from '../apis/cart.js';
+import { getCart } from '../apis/cart.js';
 
 export const initCardClickEvent = ({ nodeListening, ProductData, userData, cart }) => {
    nodeListening.querySelectorAll('article').forEach((article) => {

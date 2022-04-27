@@ -1,5 +1,5 @@
-import { getProductsData } from '../apis/getProducts.js';
-import { card } from '../components/ProductCard.js';
+import { getProductsData } from '../../apis/products.js';
+import { card } from '../../components/ProductCard.js';
 
 export const printProductCards = async (sectionNode, filters) => {
    const productData = await getProductsData(filters);

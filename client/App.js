@@ -1,6 +1,6 @@
-import { printHeader } from './helpers/header.js';
-import { getCart } from './apis/getCart.js';
+import { getCart } from './apis/cart.js';
 import { loadStoreSection } from './helpers/loaders/storeSection.js';
+import { headerHandler } from './handlers/headerHandler.js';
 
 const user = localStorage.getItem('user');
 let userData = null;
@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', async (e) => {
       userData = JSON.parse(user);
       cart = await getCart(userData);
    }
-   printHeader(userData, cart);
+
+   headerHandler(userData, cart);
 
    // On load specific path url
    if (location.hash === '#store') {

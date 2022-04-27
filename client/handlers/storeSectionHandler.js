@@ -1,9 +1,9 @@
-import { printStoreAsideContent } from '../helpers/storeAsideContent.js';
-import { printProductCards } from '../helpers/productCards.js';
+import { printStoreAsideContent } from '../helpers/store/storeAsideContent.js';
+import { printProductCards } from '../helpers/store/productCards.js';
 import { initCardClickEvent } from '../events/onClick.js';
 import { initStoreSectionChangeEvent } from '../events/onChange.js';
-import { printProductOrderingSelect } from '../helpers/productOrderingFilter.js';
-import { printProductSearchFilter } from '../helpers/productSearchFilter.js';
+import { printProductOrderingSelect } from '../helpers/store/productOrderingFilter.js';
+import { printProductSearchFilter } from '../helpers/store/productSearchFilter.js';
 import { initStoreSectionKeyupEvent } from '../events/onKeyup.js';
 
 const filters = {

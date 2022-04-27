@@ -1,13 +1,3 @@
-/* 
-   queryFilters valid
-   {
-      category__name: 'String',
-      name: 'String',
-      unit_price: Number,
-      offer: 'Boolean',
-   };
-*/
-
 const getFilters = (filters) => {
    let setedFilters = '';
    for (const key in filters) {

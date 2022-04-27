@@ -1,4 +1,4 @@
-import { printProductCards } from '../helpers/productCards.js';
+import { printProductCards } from '../helpers/store/productCards.js';
 
 export const initStoreSectionKeyupEvent = ({ nodeListening, filters }) => {
    nodeListening.addEventListener('keyup', async (e) => {

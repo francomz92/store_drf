@@ -1,4 +1,4 @@
-import { selectFilter } from '../components/SelectFilter.js';
+import { selectFilter } from '../../components/SelectFilter.js';
 
 export const printProductOrderingSelect = (nodeHTML) => {
    nodeHTML.appendChild(

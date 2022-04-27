@@ -1,8 +1,8 @@
-import { getCategories } from '../apis/getCategories.js';
-import { selectFilter } from '../components/SelectFilter.js';
-import { checkBoxFilter } from '../components/CheckBoxFilter.js';
-import { filterContainer } from '../components/FilterContainer.js';
-import { rangeFilter } from '../components/RangeFilter.js';
+import { getCategories } from '../../apis/categories.js';
+import { selectFilter } from '../../components/SelectFilter.js';
+import { checkBoxFilter } from '../../components/CheckBoxFilter.js';
+import { filterContainer } from '../../components/FilterContainer.js';
+import { rangeFilter } from '../../components/RangeFilter.js';
 
 export const printStoreAsideContent = async () => {
    const $aside = document.createElement('aside');

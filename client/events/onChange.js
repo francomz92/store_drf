@@ -1,4 +1,4 @@
-import { printProductCards } from '../helpers/productCards.js';
+import { printProductCards } from '../helpers/store/productCards.js';
 
 export const initStoreSectionChangeEvent = ({ nodeListening, filters }) => {
    nodeListening.addEventListener('change', async (e) => {
