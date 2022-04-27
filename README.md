@@ -1,17 +1,27 @@
+Python version 3.10.4
+
+## **Instrucciones**
+
+- npm run install
+- virtualenv venv
+- correr entorno virtual
+- crear las variables de entorno
+- npm run server:dependencies
+- npm run server:migrations
 ## **Server Env Variables**
 
 ### **Domain Variable**
 
-- DOMAIN
+- DOMAIN (http://server-domain.com)
 
 ### **Django Secret Key Variable**
 
-- DRF_SECRET_KEY
+- DRF_SECRET_KEY (run in bash $ openssl rand -base64 32)
 
 ### **JWT Variables**
 
-- TOKEN_LIFETIME
-- TOKEN_REFRESH_LIFETIME
+- TOKEN_LIFETIME (min)
+- TOKEN_REFRESH_LIFETIME (min)
 - ENCRYPTION_TYPE
 
 ### **Email Variables**
