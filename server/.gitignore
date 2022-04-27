@@ -2,6 +2,6 @@
 .env
 venv
 .vscode
-__pycache__
-**/migrations/*
+**/__pycache__
+**/migrations/0*
 media
