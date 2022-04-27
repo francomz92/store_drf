@@ -4,7 +4,9 @@
    "description": "",
    "main": "index.js",
    "scripts": {
-      "test:server": "cd server && python manage.py test",
+      "server:dependencies": "pip install -r server/requirements.txt",
+      "server:migrations": "python server/manage.py makemigrations && python server/manage.py migrate",
+      "server:tests": "cd server && python manage.py test",
       "front": "nodemon client/server.js",
       "back": "cd server && python manage.py runserver"
    },
