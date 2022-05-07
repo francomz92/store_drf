@@ -7,3 +7,13 @@ export const printHeader = (userData, cart) => {
    document.body.insertAdjacentElement('afterbegin', $header);
    return $header;
 };
+
+export const setActiveLink = (nodeContainer, HTMLTag) => {
+   const $links = nodeContainer.querySelectorAll(HTMLTag);
+
+   $links.forEach((link) => {
+      if (link.href.includes(`/${location.hash}`)) {
+         link.classList.add('active-link');
+      } else link.classList.remove(['active-link']);
+   });
+};
