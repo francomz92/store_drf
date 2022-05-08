@@ -1,12 +1,18 @@
-.pagination {
-   /* margin-left: 15rem; */
-   list-style: none;
-   display: flex;
-   gap: 3px;
+.pagination-container {
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
    position: absolute;
    bottom: 1rem;
-   left: 50%;
-   /* transform: translateX(-50%); */
+   left: 0;
+}
+.pagination {
+   margin-left: 13rem; /* margin-left: 0 in @mediaQuery */
+   list-style: none;
+   display: flex;
+   justify-content: center;
+   gap: 3px;
 }
 .pagination span {
    display: block;

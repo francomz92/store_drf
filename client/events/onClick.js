@@ -24,21 +24,12 @@ export const initCardClickEvent = ({ nodeListening, ProductData, userData, cart 
 export const initStoreSectionclickEvent = ({ nodeListening, filters, itemsPerPage }) => {
    nodeListening.addEventListener('click', async (e) => {
       if (e.target.matches('li>span')) {
-         // let aux = filters['page'];
          filters['page'] = +e.target.id;
          const { productData } = await printProductCards(nodeListening, filters);
          let quantityPages = Math.ceil(productData.count / itemsPerPage);
          printPagination(nodeListening.querySelector('.pagination-container'), quantityPages, filters);
          const pages = nodeListening.querySelector('.pagination-container').querySelectorAll('span');
          setStyleCurrentPage(pages, filters['page'], 1, quantityPages);
-         // if (aux < +e.target.id && +e.target.id < quantityPages) {
-         //    pages[0].id = +pages[0].id + 1;
-         //    pages[pages.length - 1].id = +pages[pages.length - 1].id + 1;
-         // }
-         // if (aux > +e.target.id && +e.target.id > 1) {
-         //    pages[0].id = +pages[0].id - 1;
-         //    pages[pages.length - 1].id = +pages[pages.length - 1].id - 1;
-         // }
       }
    });
 };
