@@ -1,0 +1,30 @@
+.pagination {
+   /* margin-left: 15rem; */
+   list-style: none;
+   display: flex;
+   gap: 3px;
+   position: absolute;
+   bottom: 1rem;
+   left: 50%;
+   /* transform: translateX(-50%); */
+}
+.pagination span {
+   display: block;
+   padding: 5px 10px;
+   border: 1px solid #eee;
+   border-radius: 5px;
+   background-color: #eee3;
+   color: #333;
+   cursor: pointer;
+}
+.pagination span:hover {
+   color: rgb(255, 194, 80);
+}
+.active-page {
+   color: rgb(255, 194, 80) !important;
+   pointer-events: none;
+}
+.disabled {
+   pointer-events: none;
+   color: #aaa !important;
+}

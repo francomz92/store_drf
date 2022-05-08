@@ -24,6 +24,7 @@ select {
    grid-template-columns: repeat(auto-fit, minmax(150px, 200px));
    justify-content: center;
    gap: 0.5rem;
+   position: relative;
 }
 .input-search {
    width: 156px;
@@ -42,6 +43,7 @@ select {
    position: absolute;
    top: 2rem;
    right: 0;
+   z-index: 1;
 }
 .store-section {
    width: 100%;

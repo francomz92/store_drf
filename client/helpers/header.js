@@ -8,7 +8,7 @@ export const printHeader = (userData, cart) => {
    return $header;
 };
 
-export const setActiveLink = (nodeContainer, HTMLTag) => {
+export const setStyleActiveLink = (nodeContainer, HTMLTag) => {
    const $links = nodeContainer.querySelectorAll(HTMLTag);
 
    $links.forEach((link) => {

@@ -1,7 +1,7 @@
 import { getCart } from './apis/cart.js';
 import { loadStoreSection } from './helpers/loaders/storeSection.js';
 import { headerHandler } from './handlers/headerHandler.js';
-import { setActiveLink } from './helpers/header.js';
+import { setStyleActiveLink } from './helpers/header.js';
 
 const user = localStorage.getItem('user');
 let userData = null;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
    const $header = headerHandler(userData, cart);
 
    // On load specific path url
-   setActiveLink($header.querySelector('nav'), 'a');
+   setStyleActiveLink($header.querySelector('nav'), 'a');
 
    switch (location.hash) {
       case '#store':
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
 
    // On change path url event
    window.addEventListener('hashchange', (e) => {
-      setActiveLink($header.querySelector('nav'), 'a');
+      setStyleActiveLink($header.querySelector('nav'), 'a');
 
       if (e.newURL.match('/#store')) {
          document.head.querySelector('title').textContent = 'Store';

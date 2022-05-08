@@ -10,6 +10,7 @@ export const loadStoreSection = (main, userData, cart) => {
          '../../assets/styles/section.store.css',
          '../../assets/styles/aside.css',
          '../../assets/styles/card.css',
+         '../../assets/styles/pagination.css',
       ],
    });
 };
