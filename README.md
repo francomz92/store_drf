@@ -2,10 +2,10 @@ Python version 3.10.4
 
 ## **Instrucciones**
 
-- npm run install
-- virtualenv venv
+- npm install
+- virtualenv venv dentro del directorio **server** (server/venv)
 - correr entorno virtual
-- crear las variables de entorno
+- crear las variables de entorno dentro del directorio **server** (server/.env)
 - npm run server:dependencies
 - npm run server:migrations
 ## **Server Env Variables**
