@@ -8,6 +8,7 @@ Python version 3.10.4
 - crear las variables de entorno dentro del directorio **server** (server/.env)
 - npm run server:dependencies
 - npm run server:migrations
+
 ## **Server Env Variables**
 
 ### **Domain Variable**

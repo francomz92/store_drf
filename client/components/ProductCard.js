@@ -1,4 +1,4 @@
-export const card = (data) => {
+export const Card = (data) => {
    const $card = document.createElement('article');
    $card.setAttribute('id', data.id);
    $card.innerHTML = `

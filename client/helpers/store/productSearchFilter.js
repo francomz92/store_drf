@@ -1,8 +1,8 @@
-import { searchFilter } from '../../components/SearchFilter.js';
+import { SearchFilter } from '../../components/SearchFilter.js';
 
 export const printProductSearchFilter = (nodeHTML) => {
    nodeHTML.appendChild(
-      searchFilter({
+      SearchFilter({
          nameAttr: 'search',
          listId: 'searched-products',
          placeHolder: 'Search...',

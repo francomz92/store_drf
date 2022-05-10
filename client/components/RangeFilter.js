@@ -1,4 +1,4 @@
-export const rangeFilter = (firstNameAttr, secondNameAttr) => {
+export const RangeFilter = (firstNameAttr, secondNameAttr) => {
    const $container = document.createElement('div');
    const $desdeInput = document.createElement('input');
    const $desdeSpan = document.createElement('span');

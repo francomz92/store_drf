@@ -1,4 +1,4 @@
-export const searchFilter = ({ nameAttr, placeHolder = '', listId = '', styles = [] }) => {
+export const SearchFilter = ({ nameAttr, placeHolder = '', listId = '', styles = [] }) => {
    const $searchInput = document.createElement('input');
 
    $searchInput.setAttribute('type', 'search');

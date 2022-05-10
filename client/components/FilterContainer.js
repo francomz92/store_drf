@@ -1,4 +1,4 @@
-export const filterContainer = ({ labelName = '', labelReference = '', filter }) => {
+export const FilterContainer = ({ labelName = '', labelReference = '', filter }) => {
    const $divContainer = document.createElement('div');
 
    if (labelName !== '') {

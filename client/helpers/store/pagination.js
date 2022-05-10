@@ -1,10 +1,10 @@
-import { pagination } from '../../components/Pagination.js';
+import { Pagination } from '../../components/Pagination.js';
 
 export const printPagination = (nodeHTML, quantityPages, filters) => {
    nodeHTML.innerHTML = '';
 
    if (quantityPages > 0) {
-      const $pagination = pagination({
+      const $pagination = Pagination({
          quantityPages: quantityPages,
          filters: filters,
       });

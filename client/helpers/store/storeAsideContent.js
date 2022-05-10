@@ -1,8 +1,8 @@
 import { getCategories } from '../../apis/categories.js';
-import { selectFilter } from '../../components/SelectFilter.js';
-import { checkBoxFilter } from '../../components/CheckBoxFilter.js';
-import { filterContainer } from '../../components/FilterContainer.js';
-import { rangeFilter } from '../../components/RangeFilter.js';
+import { SelectFilter } from '../../components/SelectFilter.js';
+import { CheckBoxFilter } from '../../components/CheckBoxFilter.js';
+import { FilterContainer } from '../../components/FilterContainer.js';
+import { RangeFilter } from '../../components/RangeFilter.js';
 
 export const printStoreAsideContent = async () => {
    const $aside = document.createElement('aside');
@@ -11,20 +11,20 @@ export const printStoreAsideContent = async () => {
    $aside.classList.add('store-aside');
    // SelectFilter for Categories
    $aside.appendChild(
-      filterContainer({
+      FilterContainer({
          labelName: 'Categoría:',
          labelReference: 'category',
-         filter: selectFilter({ nameAttr: 'category', objArray: categories, placeHolder: 'Todos' }),
+         filter: SelectFilter({ nameAttr: 'category', objArray: categories, placeHolder: 'Todos' }),
       })
    );
    // CheckboxFilter for Offers
    $aside.appendChild(
-      filterContainer({ labelName: 'En oferta: ', labelReference: 'offer', filter: checkBoxFilter('offer') })
+      FilterContainer({ labelName: 'En oferta: ', labelReference: 'offer', filter: CheckBoxFilter('offer') })
    );
    // RangeFilter for Unit Price
    $aside.appendChild(
-      filterContainer({
-         filter: rangeFilter('unit_price__gte', 'unit_price__lte'),
+      FilterContainer({
+         filter: RangeFilter('unit_price__gte', 'unit_price__lte'),
       })
    );
 

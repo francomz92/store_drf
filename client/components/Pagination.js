@@ -1,4 +1,4 @@
-export const pagination = ({ quantityPages, filters }) => {
+export const Pagination = ({ quantityPages, filters }) => {
    const $navPagination = document.createElement('nav');
 
    $navPagination.classList.add('pagination');

@@ -1,4 +1,4 @@
-export const selectFilter = ({ nameAttr, objArray, styles = [], placeHolder = '' }) => {
+export const SelectFilter = ({ nameAttr, objArray, styles = [], placeHolder = '' }) => {
    const $select = document.createElement('select');
 
    $select.setAttribute('name', nameAttr);

@@ -1,8 +1,8 @@
-import { selectFilter } from '../../components/SelectFilter.js';
+import { SelectFilter } from '../../components/SelectFilter.js';
 
 export const printProductOrderingSelect = (nodeHTML) => {
    nodeHTML.appendChild(
-      selectFilter({
+      SelectFilter({
          nameAttr: 'ordering',
          objArray: [
             { name: 'unit_price', alias: 'Menor Precio' },

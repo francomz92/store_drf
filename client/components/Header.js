@@ -1,4 +1,4 @@
-export const header = (userData, cart) => {
+export const Header = (userData, cart) => {
    const $header = document.createElement('header');
    const $a = document.createElement('a');
    const $img = document.createElement('img');
