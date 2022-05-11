@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
-   <head>
-      <meta charset="UTF-8" />
-      <title></title>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
-   </head>
-   <body>
-      <main id="sections"></main>
 
-      <script src="./App.js" type="module"></script>
-   </body>
+<head>
+   <meta charset="UTF-8" />
+   <title></title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="shortcut icon" href="./assets/img/logo.png" type="image/x-icon" />
+   <link rel="stylesheet" href="assets/styles/forms.css">
+</head>
+
+<body>
+   <main id="sections"></main>
+
+   <div class="modal" id="sign-in-modal">
+      <form id="login-form">
+         <button class="modal-close-button" type="button">volver</button>
+         <img src="assets/img/logo.png" alt="">
+         <span id="credentials-invalid"></span>
+         <input type="email" name="email" placeholder="Email">
+         <span id="email-error"></span>
+         <input type="password" name="password" placeholder="Contraseña">
+         <span id="password-error"></span>
+         <input type="submit" value="Iniciar Sesion">
+         <p>o registrate <a href="#sign-up">acá</a></p>
+      </form>
+   </div>
+
+   <script src="./App.js" type="module"></script>
+</body>
+
 </html>
