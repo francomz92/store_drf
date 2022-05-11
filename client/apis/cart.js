@@ -5,7 +5,7 @@ export const getCart = async (userData) => {
          {
             headers: {
                'content-Type': 'application/json',
-               Authorization: `test ${userData.accessToken}`,
+               Authorization: `test ${userData.access}`,
             },
          }
       );
@@ -26,7 +26,7 @@ export const addItemToCart = async (userData, item) => {
             body: JSON.stringify(item),
             headers: {
                'content-Type': 'application/json',
-               Authorization: `test ${userData.accessToken}`,
+               Authorization: `test ${userData.access}`,
             },
          }
       );
