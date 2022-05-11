@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
 from django.utils import http
@@ -5,7 +6,7 @@ from django.utils import http
 from rest_framework import response, status, generics, exceptions
 
 from rest_framework_simplejwt import views as jwt_views
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import RefreshToken, OutstandingToken
 
 from utils.auth import check_token
 
@@ -59,9 +60,12 @@ class LogOutView(generics.GenericAPIView):
 
    serializer_class = serializers.LogInSerializer
 
-   def get(self, request, *args, **kwargs):
-      if request.user.is_authenticated:
-         RefreshToken.for_user(request.user)
+   def post(self, request, *args, **kwargs):
+      data = json.loads(request.body)
+      user = get_user_model().objects.filter(id=data['user']['id']).first()
+      token = OutstandingToken.objects.filter(user=user).order_by('-created_at').first()
+      if user.is_authenticated and data['refresh'] == token.token:
+         RefreshToken.for_user(user=user)
          return response.Response(
              {
                  'message': _('You have been logged out successfully'),

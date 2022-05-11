@@ -14,9 +14,9 @@ class LogOutViewTests(APITestCase):
 
    def setUp(self) -> None:
       self.user = get_or_create_user(self.payload['email'], self.payload['dni'], self.payload['password'])
-      token = AccessToken.for_user(self.user)
+      self.token = AccessToken.for_user(self.user)
       self.client = APIClient()
-      self.client.credentials(HTTP_AUTHORIZATION='test ' + str(token))
+      self.client.credentials(HTTP_AUTHORIZATION='test ' + str(self.token))
       return super().setUp()
 
    def test_logout(self):
@@ -27,6 +27,6 @@ class LogOutViewTests(APITestCase):
                                },
                                format='json')
       login_response = login.json()
-      response = self.client.get(LOGOUT_URL)
+      response = self.client.post(LOGOUT_URL, data=login_response, format='json')
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertFalse(check_token(self.user, login_response['access']))
