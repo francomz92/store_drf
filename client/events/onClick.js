@@ -1,5 +1,7 @@
+import { signOut } from '../apis/authentication.js';
 import { addItemToCart } from '../apis/cart.js';
 import { getCart } from '../apis/cart.js';
+import { loadSignUpModal } from '../helpers/loaders/modals.js';
 import { printPagination, setStyleCurrentPage } from '../helpers/store/pagination.js';
 import { printProductCards } from '../helpers/store/productCards.js';
 
@@ -33,3 +35,12 @@ export const initStoreSectionclickEvent = ({ nodeListening, filters, itemsPerPag
       }
    });
 };
+
+export const initHeaderClickEvent = ({ headerNode, userData }) => {
+   headerNode.addEventListener('click', async e => {
+      if (e.target.matches('#sign-in')) loadSignUpModal(headerNode)
+      else if (e.target.matches('#sign-out')) await signOut(userData)
+   })
+
+
+}
