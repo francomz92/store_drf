@@ -34,15 +34,15 @@ export const Header = (userData, cart) => {
             <button id="cart">${cart.results.items.length > 0 ? cart.results.items.length : ''}</button>
          </li>
          <div class="auth-buttons">
-            <a href="/#sign-out">Sign Out</a>
+            <button id="sign-out">Sign Out</button>
          </div>
       `;
    } else {
       $ul.innerHTML += `
          <li>
             <div class="auth-buttons">
-               <a href="/#sign-in">Sign In</a>
-               <a href="/#sign-up">Sign Up</a>
+               <button id="sign-in">Sign In</button>
+               <button id="sign-up">Sign Up</button>
             </div>
          </li>
       `;

@@ -1,9 +1,9 @@
-* {
+/* * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
+} */
 
 .header {
    width: 100%;
@@ -22,13 +22,16 @@
    margin-left: 40px;
    margin-right: -50px;
 }
-.auth-buttons > a {
+.auth-buttons > button {
    padding: 5px 10px;
    background-color: #333;
    border-radius: 20px;
    color: #ddd;
+   border-style: none;
+   outline-style: none;
+   cursor: pointer;
 }
-.auth-buttons > a:hover {
+.auth-buttons > button:hover {
    background-color: rgb(255, 194, 80);
    color: #333;
 }
