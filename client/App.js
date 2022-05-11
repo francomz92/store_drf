@@ -2,6 +2,7 @@ import { getCart } from './apis/cart.js';
 import { loadStoreSection } from './helpers/loaders/storeSection.js';
 import { headerHandler } from './handlers/headerHandler.js';
 import { setStyleActiveLink } from './helpers/header.js';
+import { loadSignUpModal } from './helpers/loaders/modals.js';
 
 const user = localStorage.getItem('user');
 let userData = null;
@@ -27,12 +28,13 @@ document.addEventListener('DOMContentLoaded', async (e) => {
       case '#contact':
          document.head.querySelector('title').textContent = 'Contact';
          break;
-      case '#sign-in':
-         document.head.querySelector('title').textContent = 'Sign In';
-         break;
-      case '#sign-up':
-         document.head.querySelector('title').textContent = 'Sign Up';
-         break;
+      // case '#sign-in':
+      //    document.head.querySelector('title').textContent = 'Sign In';
+      //    loadSignUpModal();
+      //    break;
+      // case '#sign-up':
+      //    document.head.querySelector('title').textContent = 'Sign Up';
+      //    break;
       default:
          document.head.querySelector('title').textContent = 'Home';
          break;
@@ -48,12 +50,13 @@ document.addEventListener('DOMContentLoaded', async (e) => {
       } else if (e.newURL.match('/#contact')) {
          document.head.querySelector('title').textContent = 'Contact';
          $main.innerHTML = '';
-      } else if (location.hash === '#sign-in') {
-         document.head.querySelector('title').textContent = 'Sign In';
-         $main.innerHTML = '';
-      } else if (location.hash === '#sign-up') {
-         document.head.querySelector('title').textContent = 'Sign Up';
-         $main.innerHTML = '';
+      // } else if (location.hash === '#sign-in') {
+      //    document.head.querySelector('title').textContent = 'Sign In';
+      //    loadSignUpModal();
+      //    // $main.innerHTML = '';
+      // } else if (location.hash === '#sign-up') {
+      //    document.head.querySelector('title').textContent = 'Sign Up';
+         // $main.innerHTML = '';
       } else {
          document.head.querySelector('title').textContent = 'Home';
          $main.innerHTML = '';
