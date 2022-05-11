@@ -63,8 +63,9 @@ class LogOutView(generics.GenericAPIView):
    def post(self, request, *args, **kwargs):
       data = json.loads(request.body)
       user = get_user_model().objects.filter(id=data['user']['id']).first()
-      token = OutstandingToken.objects.filter(user=user).order_by('-created_at').first()
-      if user.is_authenticated and data['refresh'] == token.token:
+      token = OutstandingToken.objects.filter(user=user).order_by('-expires_at').first()
+
+      if getattr(user, 'is_authenticated') and data['refresh'] == getattr(token, 'token'):
          RefreshToken.for_user(user=user)
          return response.Response(
              {
