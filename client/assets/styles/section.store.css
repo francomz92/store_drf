@@ -59,7 +59,7 @@ select {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 1rem !important;
+      gap: 2rem !important;
    }
 
    .foot-layout {
@@ -78,5 +78,10 @@ select {
       transform: unset !important;
       top: 0 !important;
       left: 0 !important;
+   }
+
+   .store-aside {
+      height: auto !important;
+      padding: 1rem !important;
    }
 }

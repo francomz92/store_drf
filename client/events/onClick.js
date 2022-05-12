@@ -40,6 +40,7 @@ export const initHeaderClickEvent = ({ headerNode, userData }) => {
    headerNode.addEventListener('click', async e => {
       if (e.target.matches('#sign-in')) loadSignUpModal(headerNode)
       else if (e.target.matches('#sign-out')) await signOut(userData)
+      else if (e.target.matches('.burgger')) e.target.classList.toggle('active-burgger')
    })
 
 

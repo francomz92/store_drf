@@ -4,8 +4,10 @@ export const Header = (userData, cart) => {
    const $img = document.createElement('img');
    const $nav = document.createElement('nav');
    const $ul = document.createElement('ul');
+   const $button = document.createElement('button')
 
    $header.classList.add('header');
+   $button.classList.add('burgger');
    $ul.classList.add('header__nav');
    $img.classList.add('header-logo');
    $a.setAttribute('href', '/');
@@ -50,6 +52,7 @@ export const Header = (userData, cart) => {
 
    $nav.appendChild($ul);
    $a.appendChild($img);
+   $header.appendChild($button)
    $header.appendChild($a);
    $header.appendChild($nav);
 

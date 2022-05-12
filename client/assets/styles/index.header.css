@@ -1,10 +1,3 @@
-/* * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-} */
-
 .header {
    width: 100%;
    height: 60px;
@@ -12,6 +5,19 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
+}
+
+.burgger {
+   display: none;
+   margin: 1rem;
+   width: 50px;
+   height: 50px;
+   background-image: url(../img/burgger-menu-white.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-color: transparent;
+   border: none;
+   outline: none;
 }
 
 .active-link {
@@ -22,7 +28,8 @@
    margin-left: 40px;
    margin-right: -50px;
 }
-.auth-buttons > button {
+
+.auth-buttons>button {
    padding: 5px 10px;
    background-color: #333;
    border-radius: 20px;
@@ -31,7 +38,8 @@
    outline-style: none;
    cursor: pointer;
 }
-.auth-buttons > button:hover {
+
+.auth-buttons>button:hover {
    background-color: rgb(255, 194, 80);
    color: #333;
 }
@@ -47,6 +55,7 @@
    bottom: 0.8em;
    left: 1em;
 }
+
 #cart::before {
    content: '';
    width: 24px;
@@ -58,6 +67,7 @@
    top: 0.5em;
    left: -1.5em;
 }
+
 #cart:hover {
    border: solid 1px transparent;
 }
@@ -66,6 +76,7 @@
    height: 40px;
    padding: 0px 20px;
 }
+
 .header__nav {
    justify-content: flex-end;
    width: 100%;
@@ -75,15 +86,56 @@
    padding: 0.5em 5em;
    list-style: none;
 }
+
 .user,
-.header__nav > li {
+.header__nav>li {
    padding: 0 10px;
    color: #ddd;
 }
+
 .header__nav a {
    color: #ddd;
    text-decoration: none;
 }
-.header__nav > li > a:hover {
+
+.header__nav>li>a:hover {
    color: rgb(255, 194, 80);
+}
+
+
+@media (max-width: 900px) {
+
+   .header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      z-index: 10;
+   }
+
+   .header,
+   .header__nav {
+      height: auto;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+   }
+
+   .auth-buttons,
+   .header__nav p {
+      margin: 0;
+      padding-top: 1rem;
+   }
+
+   .burgger {
+      display: block;
+   }
+
+   .burgger~* {
+      display: none;
+   }
+
+   .active-burgger~* {
+      display: block;
+   }
 }
