@@ -1,3 +1,5 @@
+import { expiredToken } from "../helpers/errors.js";
+
 export const getCart = async (userData) => {
    try {
       const response = await fetch(
@@ -13,7 +15,9 @@ export const getCart = async (userData) => {
       if (!response.ok) throw response;
       return cartData;
    } catch (error) {
-      alert(error.statusText || 'Error');
+      if (error.status === 401) {
+         expiredToken()
+      }
    }
 };
 
@@ -31,7 +35,10 @@ export const addItemToCart = async (userData, item) => {
          }
       );
       if (!response.ok) throw response;
+      return true
    } catch (error) {
-      alert(error.statusText || 'Error');
+      if (error.status === 401) {
+         expiredToken()
+      }
    }
 };

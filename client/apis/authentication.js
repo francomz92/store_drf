@@ -31,20 +31,12 @@ export const signIn = async (credentials, formNode) => {
 }
 
 export const signOut = async (userData) => {
-    try {
-        const response = await fetch('http://localhost:8000/api/logout/', {
-            method: 'POST',
-            body: JSON.stringify(userData),
-            'content-type': 'application/json'
-        })
-        const data = response.json()
-        if (!response.ok) throw response
+    const response = await fetch('http://localhost:8000/api/logout/', {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        'content-type': 'application/json'
+    })
 
-        localStorage.removeItem('user')
-        location.reload()
-        
-        return data
-    } catch (error) {
-        alert(error.statusText || 'Error')
-    }
+    localStorage.removeItem('user')
+    location.reload()
 }
