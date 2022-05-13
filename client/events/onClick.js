@@ -16,9 +16,11 @@ export const initCardClickEvent = ({ nodeListening, ProductData, userData, cart 
             ammount: 1,
          };
 
-         await addItemToCart(userData, item);
-         cart = await getCart(userData);
-         document.querySelector('#cart').textContent = cart.results.items.length;
+         const cartData = await addItemToCart(userData, item);
+         if (cartData) {
+            cart = await getCart(userData);
+            document.querySelector('#cart').textContent = cart.results.items.length;
+         }
       });
    });
 };
