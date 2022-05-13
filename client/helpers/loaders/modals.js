@@ -1,6 +1,6 @@
 import { signIn } from "../../apis/authentication.js";
 
-const showModal = (modalNode, extraNodes) => {
+export const showModal = (modalNode, extraNodes) => {
     modalNode.classList.add('show');
     if (extraNodes) {
         extraNodes.forEach(node => node.classList.add('blur'))
