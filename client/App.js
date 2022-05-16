@@ -2,19 +2,24 @@ import { getCart } from './apis/cart.js';
 import { loadStoreSection } from './helpers/loaders/storeSection.js';
 import { headerHandler } from './handlers/headerHandler.js';
 import { setStyleActiveLink } from './helpers/header.js';
+import { initVisibilityChangeEvent } from './events/visibilityCange.js';
 
 const user = localStorage.getItem('user');
 let userData = null;
 let cart = null;
 
 document.addEventListener('DOMContentLoaded', async (e) => {
-   const $main = document.getElementById('sections');
+
    if (user) {
       userData = JSON.parse(user);
       cart = await getCart(userData);
+      initVisibilityChangeEvent(userData)
    }
 
-   const $header = headerHandler(userData, cart);
+   headerHandler(userData, cart);
+
+   const $header = document.querySelector('header');
+   const $main = document.getElementById('sections');
 
    // On load specific path url
    setStyleActiveLink($header.querySelector('nav'), 'a');

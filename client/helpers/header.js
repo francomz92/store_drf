@@ -4,7 +4,7 @@ import { loadStyles } from './linkStyle.js';
 export const printHeader = (userData, cart) => {
    loadStyles('../assets/styles/index.header.css');
    const $header = Header(userData, cart);
-   document.body.insertAdjacentElement('afterbegin', $header);
+   document.querySelector('header').replaceWith($header)
    return $header;
 };
 
