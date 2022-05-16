@@ -27,7 +27,7 @@ export const Header = (userData, cart) => {
       </li>
    `;
 
-   if (userData) {
+   if (userData && cart) {
       $ul.innerHTML += `
          <li>
             <p class="user">${userData.user.email}</p>
