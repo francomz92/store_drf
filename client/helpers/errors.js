@@ -1,6 +1,7 @@
 import { showModal } from "./loaders/modals.js";
 
 export const expiredToken = () => {
+    const $header = document.querySelector('header')
     const $body = document.body
     const $errorNotification = document.createElement('div')
     const $errorMessage = document.createElement('span')
@@ -14,7 +15,7 @@ export const expiredToken = () => {
 
     $body.appendChild($errorNotification)
 
-    showModal($errorNotification, [document.body.querySelector('main')])
+    showModal($errorNotification, [$header, $body.querySelector('main')])
 
     setTimeout(() => {
         localStorage.removeItem('user')
