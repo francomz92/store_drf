@@ -1,6 +1,7 @@
 import { signOut } from '../apis/authentication.js';
-import { addItemToCart } from '../apis/cart.js';
+import { addItemToCart, removeItemToCart } from '../apis/cart.js';
 import { getCart } from '../apis/cart.js';
+import { headerHandler } from '../handlers/headerHandler.js';
 import { loadSignUpModal } from '../helpers/loaders/modals.js';
 import { printPagination, setStyleCurrentPage } from '../helpers/store/pagination.js';
 import { printProductCards } from '../helpers/store/productCards.js';
@@ -20,6 +21,7 @@ export const initCardClickEvent = ({ nodeListening, ProductData, userData, cart 
          if (cartData) {
             cart = await getCart(userData);
             document.querySelector('#cart').textContent = cart.results.items.length;
+            headerHandler(userData, cart)
          }
       });
    });
@@ -38,11 +40,19 @@ export const initStoreSectionclickEvent = ({ nodeListening, filters, itemsPerPag
    });
 };
 
-export const initHeaderClickEvent = ({ headerNode, userData }) => {
+export const initHeaderClickEvent = ({ headerNode, userData, cart }) => {
    headerNode.addEventListener('click', async e => {
       if (e.target.matches('#sign-in')) loadSignUpModal(headerNode)
       else if (e.target.matches('#sign-out')) await signOut(userData)
       else if (e.target.matches('.burgger')) e.target.classList.toggle('active-burgger')
+      else if (e.target.matches('#cart')) {
+         document.querySelector('.cart-list').classList.toggle('visible-flex')
+      } else if (e.target.matches('.remove-item')) {
+         await removeItemToCart(userData, e.target.id)
+         cart = await getCart(userData)
+         e.target.parentNode.remove()
+         document.querySelector('#cart').textContent = cart.results.items.length
+      }
    })
 
 
