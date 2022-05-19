@@ -1,141 +1,145 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .modal {
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    display: flex;
-    visibility: hidden;
-    align-items: center;
-    justify-content: center;
-    background-color: #0007;
+   width: 100%;
+   height: 100vh;
+   position: fixed;
+   top: 0;
+   left: 0;
+   z-index: 100;
+   display: flex;
+   visibility: hidden;
+   align-items: center;
+   justify-content: center;
+   background-color: #0007;
 }
 
 #login-form {
-    width: 25rem;
-    min-height: 25rem;
-    background-color: #fffc;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 6rem;
-    justify-content: center;
-    align-items: center;
-    gap: .5rem;
-    border-radius: 10px;
-    box-shadow: #777 0 0 5px;
-    transform: scale(0);
-    transition: all .3s;
-    position: relative;
+   width: 25rem;
+   min-height: 25rem;
+   background-color: #fffc;
+   display: flex;
+   flex-direction: column;
+   padding: 2rem 6rem;
+   justify-content: center;
+   align-items: center;
+   gap: 0.5rem;
+   border-radius: 10px;
+   box-shadow: #777 0 0 5px;
+   transform: scale(0);
+   transition: all 0.3s;
+   position: relative;
 }
 
-#login-form>.modal-close-button {
-    padding: 5px 10px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    outline-style: none;
-    color: #777;
-    background-color: transparent;
-    cursor: pointer;
-    transition: transform .2s;
+#login-form > .modal-close-button {
+   padding: 5px 10px;
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   border: none;
+   box-shadow: 3px 3px 5px #ccc;
+   border-radius: 5px;
+   outline-style: none;
+   color: #bbb;
+   background-color: transparent;
+   cursor: pointer;
+   transition: transform 0.1s;
 }
 
-#login-form>.modal-close-button:hover {
-    transform: scale(1.05);
+#login-form > .modal-close-button:hover {
+   transform: scale(1.05);
 }
 
-#login-form>img {
-    margin: 1rem 0;
-    width: 10rem;
+#login-form > img {
+   margin: 1rem 0;
+   width: 10rem;
 }
 
-#login-form>input {
-    width: 100%;
-    height: 2rem;
-    padding: .5rem;
-    line-height: 2rem;
-    border-radius: 5px;
-    border-style: none;
-    outline-style: none;
-    text-align: center;
-    box-shadow: #777 0 0 5px;
+#login-form > input {
+   width: 100%;
+   height: 2rem;
+   padding: 0.5rem;
+   line-height: 2rem;
+   border-style: none;
+   border-radius: 5px;
+   box-shadow: 3px 3px 5px #ccc;
+   outline-style: none;
+   text-align: center;
 }
 
-#login-form>input:hover {
-    box-shadow: #444 0 0 5px;
+#login-form > input:hover {
+   box-shadow: 3px 3px 5px #bbb;
+}
+#login-form > input:focus {
+   box-shadow: 3px 3px 5px #bbb;
+   transform: none;
 }
 
-#login-form>input[type=submit] {
-    width: 7rem;
-    line-height: 2rem;
-    padding: 0;
-    background-color: #333;
-    border-radius: 20px;
-    color: #ddd;
-    cursor: pointer;
+#login-form > input[type='submit'] {
+   width: 7rem;
+   line-height: 2rem;
+   padding: 0;
+   background-color: #333;
+   border-radius: 20px;
+   color: #ddd;
+   cursor: pointer;
 }
 
-#login-form>input[type=submit]:hover {
-    background-color: rgb(255, 194, 80);
-    color: #333;
+#login-form > input[type='submit']:hover {
+   background-color: rgb(255, 194, 80);
+   color: #333;
 }
 
-#login-form>p {
-    margin-top: 1rem;
-    color: #555;
+#login-form > p {
+   margin-top: 1rem;
+   color: #555;
 }
 
 #login-form a {
-    text-decoration: none;
-    color: rgb(255, 194, 80);
-    ;
+   text-decoration: none;
+   color: rgb(255, 194, 80);
 }
 
 .error-notification {
-    width: 15rem;
-    height: 10rem;
-    padding: 3rem;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) !important;
-    background-color: #fffc;
-    box-shadow: #777 0 0 5px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: scale(0);
-    transition: all .2s;
-    z-index: 100;
+   width: 15rem;
+   height: 10rem;
+   padding: 3rem;
+   position: fixed;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%) !important;
+   background-color: #fffc;
+   box-shadow: #777 0 0 5px;
+   border-radius: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transform: scale(0);
+   transition: all 0.2s;
+   z-index: 100;
 }
 
 .error-message {
-    display: block;
-    text-align: center;
-    font-size: 24px;
-    color: rgb(255, 194, 80);
+   display: block;
+   text-align: center;
+   font-size: 24px;
+   color: rgb(255, 194, 80);
 }
 
 .show {
-    visibility: visible;
-    transform: scale(1);
+   visibility: visible;
+   transform: scale(1);
 }
 
-.show>#login-form {
-    transform: scale(1);
+.show > #login-form {
+   transform: scale(1);
 }
 
 .blur {
-    filter: blur(10px);
+   filter: blur(10px);
 }

@@ -17,14 +17,17 @@
 .pagination span {
    display: block;
    padding: 5px 10px;
-   border: 1px solid #eee;
+   border: none;
    border-radius: 5px;
-   background-color: #eee3;
-   color: #333;
+   box-shadow: 3px 3px 5px #eee;
+   background-color: #fff;
+   color: #777;
    cursor: pointer;
+   transition: transform 0.2s;
 }
 .pagination span:hover {
    color: rgb(255, 194, 80);
+   transform: scale(1.05);
 }
 .active-page {
    color: rgb(255, 194, 80) !important;
@@ -32,5 +35,5 @@
 }
 .disabled {
    pointer-events: none;
-   color: #aaa !important;
+   color: #ccc !important;
 }
