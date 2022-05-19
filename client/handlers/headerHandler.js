@@ -4,5 +4,5 @@ import { initHeaderClickEvent } from '../events/onClick.js'
 export const headerHandler = (userData, cart) => {
    const $header = printHeader(userData, cart);
 
-   initHeaderClickEvent({ headerNode: $header, userData: userData })
+   initHeaderClickEvent({ headerNode: $header, userData: userData, cart: cart })
 };

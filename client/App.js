@@ -51,5 +51,5 @@ document.addEventListener('DOMContentLoaded', async (e) => {
          document.head.querySelector('title').textContent = 'Home';
          $main.innerHTML = '';
       }
-   });
+   });      
 });
