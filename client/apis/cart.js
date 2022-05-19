@@ -42,3 +42,17 @@ export const addItemToCart = async (userData, item) => {
       }
    }
 };
+
+export const removeItemToCart = async (userData, itemId) => {
+   try {
+      const res = await fetch(`http://localhost:8000/api/shop/private/cart/${userData.user.id}/cart_items/${itemId}/`, {
+               method: 'DELETE',
+               headers: {
+            Authorization: `test ${userData.access}`
+         }
+      })
+      if (!res.ok) throw res
+   } catch (error) {
+      alert(error.statusText || 'Error')
+   }
+}
