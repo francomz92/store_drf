@@ -1,3 +1,5 @@
+import { SimpleCheckOutList } from "./SimpleCartList.js";
+
 export const Header = (userData, cart) => {
    const $header = document.createElement('header');
    const $a = document.createElement('a');
@@ -25,7 +27,7 @@ export const Header = (userData, cart) => {
       <li>
          <a href="/#contact">Contact</a>
       </li>
-   `;
+      `;
 
    if (userData && cart) {
       $ul.innerHTML += `
@@ -36,15 +38,18 @@ export const Header = (userData, cart) => {
             <button id="cart">${cart.results.items.length > 0 ? cart.results.items.length : ''}</button>
          </li>
          <div class="auth-buttons">
-            <button id="sign-out">Sign Out</button>
+            <button class="button" id="sign-out">Sign Out</button>
          </div>
-      `;
+         `;
+      const $list = $ul.querySelector('#cart').parentNode;
+      const $productList = SimpleCheckOutList(cart.results.items)
+      $list.appendChild($productList)
    } else {
       $ul.innerHTML += `
          <li>
             <div class="auth-buttons">
-               <button id="sign-in">Sign In</button>
-               <button id="sign-up">Sign Up</button>
+               <button class="button" id="sign-in">Sign In</button>
+               <button class="button" id="sign-up">Sign Up</button>
             </div>
          </li>
       `;
