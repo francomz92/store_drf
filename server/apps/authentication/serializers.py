@@ -47,7 +47,7 @@ class LogInSerializer(jwt_serializers.TokenObtainPairSerializer):
    def validate(self, attrs):
       data = super().validate(attrs)
       data.setdefault('user', user_serializers.UserSingleSerializer(self.user).data)
-      data.setdefault('message', _(f'Welcome back, {self.user.__getattribute__("first_name")}'))
+      data.setdefault('message', _(f'Welcome back, {getattr(self.user, "first_name")}'))
       return data
 
 
@@ -61,7 +61,7 @@ class PasswordChangeSerializer(serializers.Serializer):
       fields = ('old_password', 'new_password', 'confirm_password')
 
    def validate(self, attrs):
-      user = self.context.get('request').__getattribute__('user')
+      user = getattr(self.context.get('request'), 'user')
       if not user.check_password(attrs.get('old_password')):
          raise exceptions.ValidationError(_('Old password is not correct'))
       if attrs.get('new_password') != attrs.get('confirm_password'):

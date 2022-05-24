@@ -23,7 +23,7 @@ class ShopCategoriesCreateViewTest(APITestCase):
       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
       self.assertEqual(data['name'], payload['name'])
       self.assertIsNotNone(new_category)
-      self.assertEqual(new_category.__getattribute__('name'), payload['name'])
+      self.assertEqual(getattr(new_category, 'name'), payload['name'])
 
    def test_try_to_create_a_new_category_without_some_required_data(self):
       """

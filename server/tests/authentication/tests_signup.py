@@ -33,7 +33,7 @@ class SignUpViewTests(APITestCase):
       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
       self.assertIn('message', data)
       self.assertIsNotNone(user)
-      self.assertFalse(user.__getattribute__('is_active'))
+      self.assertFalse(getattr(user, 'is_active'))
 
    def test_try_to_signup_without_some_required_data(self):
       """
@@ -75,4 +75,4 @@ class SignUpViewTests(APITestCase):
       self.assertEqual(response.status_code, status.HTTP_200_OK)
       self.assertIn('message', data)
       self.assertIsNotNone(user_activated)
-      self.assertTrue(user_activated.__getattribute__('is_active'))
+      self.assertTrue(getattr(user_activated, 'is_active'))

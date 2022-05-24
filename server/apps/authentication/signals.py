@@ -14,8 +14,6 @@ from utils.auth import get_account_activation_link, get_password_reset_link
 
 from apps.users import serializers as user_serializers
 
-DOMAIN = str(os.getenv('DOMAIN'))
-
 
 @receiver(post_save, sender=get_user_model())
 def send_confirmation_email(sender, instance, created, **kwargs):

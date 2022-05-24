@@ -4,24 +4,22 @@ from corsheaders.defaults import default_headers, default_methods
 
 from .base import *
 
-SECRET_KEY = os.getenv('DRF_SECRET_KEY')
-
 DEBUG = False
 
 # Hosts Settings
 ALLOWED_HOSTS = [
-    os.getenv('DOMAIN').__str__(),
+    os.getenv("DOMAIN"),
 ]
 
 # Datebases Settings
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('DB_ENGINE').__str__(),
-        'NAME': os.getenv('DB_NAME').__str__(),
-        'USER': os.getenv('DB_USER').__str__(),
-        'PASSWORD': os.getenv('DB_PASSWORD').__str__(),
-        'HOST': os.getenv('DB_HOST').__str__(),
-        'PORT': os.getenv('DB_PORT').__str__(),
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
     }
 }
 
@@ -51,8 +49,8 @@ CORS_ALLOW_HEADERS = list(default_headers) + ['HTTP_AUTHORIZATION']
 
 # Simple JWR Settings
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(os.getenv('TOKEN_LIFETIME').__str__())),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=int(os.getenv('TOKEN_REFRESH_LIFETIME').__str__())),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(os.getenv('TOKEN_LIFETIME', '60'))),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=int(os.getenv('TOKEN_REFRESH_LIFETIME', '30'))),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
     'ALGORITHM': os.getenv('ENCRYPTION_TYPE'),
@@ -67,15 +65,15 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
     'JTI_CLAIM': 'jti',
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=int(os.getenv('TOKEN_LIFETIME').__str__())),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=int(os.getenv('TOKEN_REFRESH_LIFETIME').__str__())),
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=int(os.getenv('TOKEN_LIFETIME', '60'))),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=int(os.getenv('TOKEN_REFRESH_LIFETIME', '30'))),
 }
 
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT').__str__())
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')

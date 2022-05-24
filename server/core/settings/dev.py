@@ -4,8 +4,6 @@ from corsheaders.defaults import default_headers, default_methods
 
 from .base import *
 
-SECRET_KEY = os.getenv('DRF_SECRET_KEY')
-
 DEBUG = True
 
 # Hosts Settings
@@ -21,7 +19,6 @@ DATABASES = {
 
 # Django Rest Framework Settings
 REST_FRAMEWORK = {
-    #  'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer', ),
     'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser', ),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny', ),
     'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication', ),
@@ -30,20 +27,16 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend', ),
 }
 
-# CORS_ALLOW_ALL_ORIGIN = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://localhost:3333',
-    #  'http://*',
-    #  'https://*',
-    #  'http://localhost:8080',
 ]
 # CORS_ALLOWED_ORIGIN_REGEXES: List[str] = ['http://*', 'https://*']  # Para permitir patrones de url
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = False
 CORS_PREFLIGHT_MAX_AGE = 3600
-CORS_ALLOW_METHODS = list(default_methods)
-CORS_ALLOW_HEADERS = list(default_headers) + ['HTTP_AUTHORIZATION']
+CORS_ALLOW_METHODS = default_methods
+CORS_ALLOW_HEADERS = (*default_headers, 'HTTP_AUTHORIZATION')
 
 # Simple JWR Settings
 SIMPLE_JWT = {
@@ -72,7 +65,7 @@ SIMPLE_JWT = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = int(os.getenv('EMAIL_PORT').__str__())
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')

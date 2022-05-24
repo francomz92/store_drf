@@ -11,6 +11,7 @@ Python version 3.10.4
 
 ## **Server Env Variables**
 
+- ENV (prod/dev) por defecto "dev"
 ### **Domain Variable**
 
 - DOMAIN (http://server-domain.com)
