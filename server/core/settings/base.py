@@ -1,9 +1,15 @@
 import os
 from pathlib import Path
+from datetime import timedelta
+from corsheaders.defaults import default_headers, default_methods
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+DEBUG = True if os.getenv('ENV', 'dev') == 'dev' else False
+
 SECRET_KEY = os.getenv('DRF_SECRET_KEY', 'django-insecure-=)%d-sqe9k=mg8c5*d%z1b^ve*e4_xb=0n0be^ry8_!rlr%#r)')
+
+ALLOWED_HOSTS = ['*' if DEBUG else os.getenv('ALLOWED_HOSTS', '*')]
 
 BASE_APPS = [
     'django.contrib.admin',
@@ -102,6 +108,46 @@ LOGOUT_URL = 'auth:logout'
 
 AUTH_USER_MODEL = 'users.User'
 
+# Django Rest Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': ('rest_framework.parsers.JSONParser', ),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny', ),
+    'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication', ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend', ),
+}
+
+# Cors Settings
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = False
+CORS_PREFLIGHT_MAX_AGE = 3600
+CORS_ALLOW_METHODS = default_methods
+CORS_ALLOW_HEADERS = (*default_headers, 'HTTP_AUTHORIZATION')
+
+# JWT Settings
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': os.getenv('ENCRYPTION_TYPE', 'HS256'),
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+    'JTI_CLAIM': 'jti',
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(hours=int(os.getenv('TOKEN_LIFETIME', '24'))),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(hours=int(os.getenv('TOKEN_REFRESH_LIFETIME', '24'))),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=int(os.getenv('TOKEN_LIFETIME', '24'))),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=int(os.getenv('TOKEN_REFRESH_LIFETIME', '24'))),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+}
+
+# Admin Site Ordering
 ADMIN_REORDER = (
     {
         'app': 'auth',
