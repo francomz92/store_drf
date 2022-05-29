@@ -10,7 +10,6 @@
 
 .burgger {
    display: none;
-   margin: 1rem;
    width: 50px;
    height: 50px;
    background-image: url(../img/burgger-menu-white.png);
@@ -216,6 +215,7 @@
    }
 
    .header {
+      padding: 1rem 0;
       position: sticky;
       top: 0;
       left: 0;
@@ -273,6 +273,7 @@
       min-height: 20px;
       margin: auto;
       background-image: url('../img/reciclaje-white.png');
+      transform: none;
       /* z-index: 800; */
    }
 

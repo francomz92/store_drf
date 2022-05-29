@@ -94,6 +94,10 @@ select:hover {
       left: 0 !important;
    }
 
+   .input-search {
+      z-index: 1;
+   }
+
    .store-aside {
       height: auto !important;
       padding: 1rem !important;
