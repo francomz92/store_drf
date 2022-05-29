@@ -82,10 +82,15 @@
    width: 100%;
    padding: 5px;
    position: relative;
+   display: flex;
+   overflow: hidden;
 }
 
 .cart-list li:hover {
    background-color: rgb(255, 194, 80);
+}
+.cart-list > li:hover > .remove-item {
+   transform: none;
 }
 
 .cart-list img {
@@ -95,7 +100,7 @@
 }
 
 .cart-list summary,
-.cart-list summary>div {
+.cart-list summary > div {
    width: 100%;
    padding: 0 5px;
    display: flex;
@@ -103,23 +108,27 @@
    justify-content: space-between;
 }
 
-.cart-list details>span {
+.cart-list details > span {
    display: block;
    text-align: center;
    font-size: 12px;
    color: #333;
 }
+.cart-list details,
 .remove-item {
+   width: 100%;
+}
+
+.remove-item {
+   display: block;
    width: 16px;
-   min-height: 16px;
-   position: absolute;
-   top: 2px;
-   right: 1px;
    background-image: url('../img/reciclaje-black.png');
    background-position: center;
-   background-size: cover;
+   background-size: 16px;
    background-repeat: no-repeat;
    cursor: pointer;
+   transform: translateX(20px);
+   transition: transform 0.2s;
 }
 
 #checkout {
@@ -142,7 +151,7 @@
 }
 
 .user,
-.header__nav>li {
+.header__nav > li {
    padding: 0 10px;
    color: #ddd;
 }
@@ -152,7 +161,7 @@
    text-decoration: none;
 }
 
-.header__nav>li>a:hover {
+.header__nav > li > a:hover {
    color: rgb(255, 194, 80);
 }
 
@@ -178,7 +187,6 @@
 }
 
 @media (max-width: 900px) {
-
    .header * {
       font-size: 1.4rem;
    }
@@ -223,11 +231,11 @@
       display: block;
    }
 
-   .burgger~* {
+   .burgger ~ * {
       display: none;
    }
 
-   .active-burgger~* {
+   .active-burgger ~ * {
       display: block;
    }
 
@@ -248,7 +256,7 @@
    }
 
    .cart-list li {
-      padding: .5rem !important;
+      padding: 0.5rem !important;
       border-bottom: 1px solid #000;
    }
    .cart-list li:hover {
@@ -260,7 +268,7 @@
    .remove-item {
       display: block;
       position: static;
-      padding: .5rem;
+      padding: 0.5rem;
       width: 20px;
       min-height: 20px;
       margin: auto;
